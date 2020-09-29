@@ -28,8 +28,11 @@ Route::group(['prefix' => 'clients'], function() {
 });
 
 Route::group(['prefix' => 'products'], function() {
+    Route::get('', [ProductController::class,'list'])->name('api.products.list');
+    Route::post('', [ProductController::class,'store'])->name("api.products.store");
+    Route::delete('{product}', [ProductController::class,'destroy'])->name("api.products.destroy");
+    Route::patch('{product}', [ProductController::class,'update'])->name("api.products.update");
     Route::post('find/{product?}', [ProductController::class,'find'])->name("api.products.find");
-    //Route::post('', [ProductController::class,'store'])->name("products.store");
     Route::patch('{product}', [ProductController::class,'update'])->name("api.products.update");
     Route::delete('{product}', [ProductController::class,'destroy'])->name("api.products.destroy");
 });

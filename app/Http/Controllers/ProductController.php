@@ -21,10 +21,14 @@ class ProductController extends Controller
         return view('product.show')->with(["product" => $product]);
     }
 
+    public function list()
+    {
+        return $this->productService->all();
+    }
+
     public function index()
     {
-        $products = $this->productService->all();
-        return view('product.index')->with(["products" => $products]);
+        return view('product.index');
     }
 
     public function create()
@@ -34,8 +38,7 @@ class ProductController extends Controller
 
     public function store(ProductStoreRequest $request)
     {
-        $this->productService->save($request->all());
-        return redirect('products');
+        return $this->productService->save($request->all());
     }
 
     public function edit($id)
@@ -46,14 +49,12 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->productService->update($request->all(), $id);
-        return redirect('products');
+        return $this->productService->update($request->all(), $id);
     }
 
     public function destroy($id)
     {
-        $this->productService->destroy($id);
-        return redirect('products');
+        return $this->productService->destroy($id);
     }
 
     public function find($id)
