@@ -55,6 +55,9 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <ProductEdit></ProductEdit>
+        </div>
     </div>
 </template>
 
@@ -117,6 +120,9 @@ export default {
             this.editProductData.price = null
             this.editProductData.id = this.editId
         }
+    },
+    components: {
+        ProductEdit: () => import('./edit')
     }
 }
 </script>
