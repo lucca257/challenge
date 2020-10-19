@@ -23,7 +23,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('NavBar', require('./components/layouts/NavBar.vue').default);
 
 Vue.component('product-index', require('./components/product/index').default);
-Vue.component('product-create', require('./components/product/create').default);
 Vue.component('product-edit', require('./components/product/edit').default);
 
 /**
