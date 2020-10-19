@@ -25,6 +25,7 @@ Vue.component('NavBar', require('./components/layouts/NavBar.vue').default);
 Vue.component('product-index', require('./components/product/index').default);
 Vue.component('product-edit', require('./components/product/edit').default);
 
+Vue.component('client-index', require('./components/clients').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
