@@ -21,8 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'clients'], function() {
-    //Route::get('', [ClientController::class,'index'])->name('api.clients.index');
+    Route::get('', [ClientController::class,'list'])->name('api.clients.list');
     Route::post('', [ClientController::class,'store'])->name("api.clients.store");
+    Route::get('find/{client?}', [ClientController::class,'find'])->name("api.clients.store");
     Route::patch('{client}', [ClientController::class,'update'])->name("api.clients.update");
     Route::delete('{client}', [ClientController::class,'destroy'])->name("api.clients.destroy");
 });
@@ -30,11 +31,9 @@ Route::group(['prefix' => 'clients'], function() {
 Route::group(['prefix' => 'products'], function() {
     Route::get('', [ProductController::class,'list'])->name('api.products.list');
     Route::post('', [ProductController::class,'store'])->name("api.products.store");
-    Route::delete('{product}', [ProductController::class,'destroy'])->name("api.products.destroy");
-    Route::patch('{product}', [ProductController::class,'update'])->name("api.products.update");
     Route::post('find/{product?}', [ProductController::class,'find'])->name("api.products.find");
-    Route::patch('{product}', [ProductController::class,'update'])->name("api.products.update");
     Route::delete('{product}', [ProductController::class,'destroy'])->name("api.products.destroy");
+    Route::patch('{product}', [ProductController::class,'update'])->name("api.products.update");
 });
 
 Route::group(['prefix' => 'orders'], function() {
