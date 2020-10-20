@@ -20,7 +20,7 @@ class ProductController extends BaseController
     /**
      * view com todas as operações de crud (criar, editar, excluir e visualizar)
      */
-    public function index()
+    public function home()
     {
         return view('product.index');
     }
