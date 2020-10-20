@@ -17,7 +17,7 @@ Route::prefix('clients')->group(function (){
 });
 
 Route::prefix('products')->group(function (){
-    Route::get('', [ProductController::class,'index'])->name('products.index');
+    Route::get('', [ProductController::class,'home'])->name('products.home');
 });
 
 Route::prefix('orders')->group(function (){

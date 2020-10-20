@@ -29,11 +29,11 @@ Route::group(['prefix' => 'clients'], function() {
 });
 
 Route::group(['prefix' => 'products'], function() {
-    Route::get('', [ProductController::class,'list'])->name('api.products.list');
-    Route::post('', [ProductController::class,'store'])->name("api.products.store");
-    Route::post('find/{product?}', [ProductController::class,'find'])->name("api.products.find");
-    Route::delete('{product}', [ProductController::class,'destroy'])->name("api.products.destroy");
-    Route::patch('{product}', [ProductController::class,'update'])->name("api.products.update");
+    Route::get('', [ProductController::class,'index'])->name('products.index');
+    Route::post('', [ProductController::class,'store'])->name("products.store");
+    Route::post('find/{product?}', [ProductController::class,'find'])->name("products.find");
+    Route::delete('{product}', [ProductController::class,'destroy'])->name("products.destroy");
+    Route::patch('{product}', [ProductController::class,'update'])->name("products.update");
 });
 
 Route::group(['prefix' => 'orders'], function() {
