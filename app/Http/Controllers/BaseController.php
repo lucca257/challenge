@@ -15,7 +15,7 @@ class BaseController
         $this->service = $service;
     }
 
-    public function list(){
+    public function index(){
         return $this->service->all();
     }
 
