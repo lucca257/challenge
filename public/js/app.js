@@ -2032,8 +2032,8 @@ __webpack_require__.r(__webpack_exports__);
       products: null,
       loading: false,
       editId: null,
-      baseUrl: 'api/products/',
-      editProductData: {
+      baseUrl: 'api/clients/',
+      editClientData: {
         id: null,
         name: null,
         price: null,
@@ -2043,10 +2043,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.loadProducts();
+    this.loadClients();
   },
   methods: {
-    loadProducts: function loadProducts() {
+    loadClients: function loadClients() {
       var _this = this;
 
       axios.get(this.baseUrl, this.fields).then(function (response) {
@@ -2060,42 +2060,42 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios["delete"](this.baseUrl + id).then(function (response) {
-        _this2.loadProducts();
+        _this2.loadClients();
 
-        alert("produto deletado");
+        alert("cliente deletado");
       })["catch"](function (error) {
         console.log(error.response.data);
       });
     },
-    onEdit: function onEdit(product) {
-      this.editId = product.id;
-      this.editProductData.name = product.name;
-      this.editProductData.price = product.price;
-      this.editProductData.description = product.description;
-      this.editProductData.id = this.editId;
+    onEdit: function onEdit(client) {
+      this.editId = client.id;
+      this.editClientData.name = client.name;
+      this.editClientData.price = client.price;
+      this.editClientData.description = client.description;
+      this.editClientData.id = this.editId;
     },
     onEditSubmit: function onEditSubmit() {
       var _this3 = this;
 
-      axios.patch(this.baseUrl + this.editId, this.editProductData).then(function (response) {
+      axios.patch(this.baseUrl + this.editId, this.editClientData).then(function (response) {
         _this3.onEditCancel();
 
-        _this3.loadProducts();
+        _this3.loadClients();
       })["catch"](function (error) {
         console.log(error);
       });
     },
     onEditCancel: function onEditCancel() {
       this.editId = null;
-      this.editProductData.name = null;
-      this.editProductData.price = null;
-      this.editProductData.id = this.editId;
+      this.editClientData.name = null;
+      this.editClientData.price = null;
+      this.editClientData.id = this.editId;
     },
     submit: function submit() {
       var _this4 = this;
 
       axios.post('api/products', this.fields).then(function (response) {
-        _this4.loadProducts();
+        _this4.loadClients();
       })["catch"](function (error) {
         alert(error.response.data);
       });
@@ -38840,13 +38840,13 @@ var render = function() {
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.editProductData.name,
-                                        expression: "editProductData.name"
+                                        value: _vm.editClientData.name,
+                                        expression: "editClientData.name"
                                       }
                                     ],
                                     attrs: { type: "text" },
                                     domProps: {
-                                      value: _vm.editProductData.name
+                                      value: _vm.editClientData.name
                                     },
                                     on: {
                                       input: function($event) {
@@ -38854,7 +38854,7 @@ var render = function() {
                                           return
                                         }
                                         _vm.$set(
-                                          _vm.editProductData,
+                                          _vm.editClientData,
                                           "name",
                                           $event.target.value
                                         )
@@ -38869,8 +38869,8 @@ var render = function() {
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.editProductData.price,
-                                        expression: "editProductData.price"
+                                        value: _vm.editClientData.price,
+                                        expression: "editClientData.price"
                                       }
                                     ],
                                     attrs: {
@@ -38882,7 +38882,7 @@ var render = function() {
                                       required: ""
                                     },
                                     domProps: {
-                                      value: _vm.editProductData.price
+                                      value: _vm.editClientData.price
                                     },
                                     on: {
                                       input: function($event) {
@@ -38890,7 +38890,7 @@ var render = function() {
                                           return
                                         }
                                         _vm.$set(
-                                          _vm.editProductData,
+                                          _vm.editClientData,
                                           "price",
                                           $event.target.value
                                         )
@@ -38905,14 +38905,13 @@ var render = function() {
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.editProductData.description,
-                                        expression:
-                                          "editProductData.description"
+                                        value: _vm.editClientData.description,
+                                        expression: "editClientData.description"
                                       }
                                     ],
                                     attrs: { type: "text" },
                                     domProps: {
-                                      value: _vm.editProductData.description
+                                      value: _vm.editClientData.description
                                     },
                                     on: {
                                       input: function($event) {
@@ -38920,7 +38919,7 @@ var render = function() {
                                           return
                                         }
                                         _vm.$set(
-                                          _vm.editProductData,
+                                          _vm.editClientData,
                                           "description",
                                           $event.target.value
                                         )
@@ -38960,7 +38959,7 @@ var render = function() {
                             : [
                                 _c("td", [_vm._v(_vm._s(product.name))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(product.price))]),
+                                _c("td", [_vm._v(_vm._s(product.email))]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._m(3, true),

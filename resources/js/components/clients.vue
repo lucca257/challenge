@@ -43,9 +43,9 @@
                         <tbody v-for="product in products">
                         <tr>
                             <template v-if="editId == product.id">
-                                <td><input v-model="editProductData.name" type="text"></td>
-                                <td><input v-model="editProductData.price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" required></td>
-                                <td><input v-model="editProductData.description" type="text"></td>
+                                <td><input v-model="editClientData.name" type="text"></td>
+                                <td><input v-model="editClientData.price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" required></td>
+                                <td><input v-model="editClientData.description" type="text"></td>
                                 <td>
                                     <span class="icon" @click="onEditSubmit()">
                                       <i class="fa fa-check"></i>
@@ -92,7 +92,7 @@ export default {
             editId: null,
             baseUrl: 'api/clients/',
 
-            editProductData: {
+            editClientData: {
                 id: null,
                 name: null,
                 price: null,
@@ -103,10 +103,10 @@ export default {
         }
     },
     mounted() {
-        this.loadProducts()
+        this.loadClients()
     },
     methods: {
-        loadProducts() {
+        loadClients() {
             axios.get(this.baseUrl, this.fields).then(response => {
                 this.products = response.data
                 this.loading = true
@@ -116,36 +116,36 @@ export default {
         },
         onDelete(id) {
             axios.delete(this.baseUrl + id).then(response => {
-                this.loadProducts()
-                alert("produto deletado")
+                this.loadClients()
+                alert("cliente deletado")
             }).catch(error => {
                 console.log(error.response.data)
             })
         },
-        onEdit(product) {
-            this.editId = product.id
-            this.editProductData.name = product.name
-            this.editProductData.price = product.price
-            this.editProductData.description = product.description
-            this.editProductData.id = this.editId
+        onEdit(client) {
+            this.editId = client.id
+            this.editClientData.name = client.name
+            this.editClientData.price = client.price
+            this.editClientData.description = client.description
+            this.editClientData.id = this.editId
         },
         onEditSubmit() {
-            axios.patch(this.baseUrl + this.editId, this.editProductData).then(response => {
+            axios.patch(this.baseUrl + this.editId, this.editClientData).then(response => {
                 this.onEditCancel()
-                this.loadProducts()
+                this.loadClients()
             }).catch(error => {
                 console.log(error)
             })
         },
         onEditCancel() {
             this.editId = null
-            this.editProductData.name = null
-            this.editProductData.price = null
-            this.editProductData.id = this.editId
+            this.editClientData.name = null
+            this.editClientData.price = null
+            this.editClientData.id = this.editId
         },
         submit() {
             axios.post('api/products', this.fields).then(response => {
-                this.loadProducts()
+                this.loadClients()
             }).catch(error => {
                 alert(error.response.data)
             })
