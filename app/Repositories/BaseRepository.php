@@ -34,8 +34,9 @@ class BaseRepository
      * @param int $id
      * @return object
      */
-    public function find(int $id): object
+    public function find(int $id)
     {
+        //dd($this->obj->find($id));
         return $this->obj->find($id);
     }
 

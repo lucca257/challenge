@@ -108,6 +108,9 @@ class BaseController
     {
         try {
             $data = $this->service->find($id);
+            if (!$data){
+                return $this->responseApi([], 'Este registro não existe', false, 500);
+            }
             return $this->responseApi($data, 'Dados retornados com sucesso');
         } catch (\Exception $e) {
             Log::error($e->getMessage());

@@ -34,7 +34,7 @@ class BaseService
      * @param int $id
      * @return object
      */
-    public function find(int $id): object
+    public function find(int $id)
     {
         return $this->repository->find($id);
     }
