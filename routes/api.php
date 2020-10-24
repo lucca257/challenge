@@ -21,11 +21,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'clients'], function() {
-    Route::get('', [ClientController::class,'list'])->name('api.clients.list');
-    Route::post('', [ClientController::class,'store'])->name("api.clients.store");
-    Route::get('find/{client?}', [ClientController::class,'find'])->name("api.clients.store");
-    Route::patch('{client}', [ClientController::class,'update'])->name("api.clients.update");
-    Route::delete('{client}', [ClientController::class,'destroy'])->name("api.clients.destroy");
+    Route::get('', [ClientController::class,'index'])->name('clients.index');
+    Route::post('', [ClientController::class,'store'])->name("clients.store");
+    Route::get('find/{client?}', [ClientController::class,'find'])->name("clients.store");
+    Route::patch('{client}', [ClientController::class,'update'])->name("clients.update");
+    Route::delete('{client}', [ClientController::class,'destroy'])->name("clients.destroy");
 });
 
 Route::group(['prefix' => 'products'], function() {
