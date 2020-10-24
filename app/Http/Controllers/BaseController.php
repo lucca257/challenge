@@ -68,7 +68,7 @@ class BaseController
             //verificando se item existe
             $item = $this->find($id);
             if (!$item['success']){
-                return $this->responseApi([], 'Este registro não existe', false, 500);
+                return $this->responseApi([], 'Este registro não existe', false, 200);
             }
 
             $this->service->update($request->all(), $id);
@@ -89,7 +89,7 @@ class BaseController
             //verificando se item existe
             $item = $this->find($id);
             if (!$item['success']){
-                return $this->responseApi([], 'Este registro não existe', false, 500);
+                return $this->responseApi([], 'Este registro não existe', false, 200);
             }
 
             $this->service->destroy($id);
@@ -109,7 +109,7 @@ class BaseController
         try {
             $data = $this->service->find($id);
             if (!$data){
-                return $this->responseApi([], 'Este registro não existe', false, 500);
+                return $this->responseApi([], 'Este registro não existe', false, 200);
             }
             return $this->responseApi($data, 'Dados retornados com sucesso');
         } catch (\Exception $e) {
