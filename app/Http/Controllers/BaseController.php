@@ -4,8 +4,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Requests\ProductStoreRequest;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 
 class BaseController
 {
