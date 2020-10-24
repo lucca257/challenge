@@ -49,11 +49,8 @@ class BaseController
     public function store(Request $request)
     {
         try {
-            $save = $this->service->save($request->all());
-            if($save){
-                return $this->responseApi([], 'Dados criados com sucesso');
-            }
-            return $this->responseApi([], 'Falha interna ao criar dados',false);
+            $this->service->save($request->all());
+            return $this->responseApi([], 'Dados criados com sucesso');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return $this->responseApi([], 'Falha interna ao criar dados', false, 500);
@@ -68,10 +65,14 @@ class BaseController
     public function update(Request $request, $id)
     {
         try {
-            $update = $this->service->update($request->all(), $id);
-            if($update){
-                return $this->responseApi([], 'Dados criados com sucesso');
+            //verificando se item existe
+            $item = $this->find($id);
+            if (!$item['success']){
+                return $this->responseApi([], 'Este registro não existe', false, 500);
             }
+
+            $this->service->update($request->all(), $id);
+            return $this->responseApi([], 'Dados criados com sucesso');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return $this->responseApi([], 'Falha interna ao criar dados', false, 500);
