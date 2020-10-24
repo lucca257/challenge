@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Services\ClientService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ClientController extends BaseController
 {
@@ -12,23 +15,11 @@ class ClientController extends BaseController
         parent::__construct($clientService);
     }
 
-    public function index()
+    /**
+     * @return Application|Factory|View
+     */
+    public function home(): View
     {
         return view('client.index');
-    }
-
-    public function create()
-    {
-        return view('client.create');
-    }
-
-    public function show($id)
-    {
-        return view('client.show');
-    }
-
-    public function edit($id)
-    {
-        return view('client.edit');
     }
 }
