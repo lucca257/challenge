@@ -29,7 +29,7 @@ class BaseService
 
     public function save(array $attributes): bool
     {
-        return $this->repository->insert($attributes);
+        return $this->repository->save($attributes);
     }
 
     public function update(int $id, array $attributes): bool
