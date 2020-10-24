@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -69,5 +70,22 @@ class BaseController
     public function find(int $id)
     {
         return $this->service->find($id);
+    }
+
+    /**
+     * Retorno padrão para as respostas API
+     * @param $data
+     * @param bool $status
+     * @param string $message
+     * @param int $status_code
+     * @return JsonResponse
+     */
+    public function responseApi($data, bool $status = true, string $message = '', int $status_code = 200): JsonResponse
+    {
+        return response()->json([
+            'success' => $status,
+            'message' => $message,
+            'data' => $data
+        ], $status_code);
     }
 }
