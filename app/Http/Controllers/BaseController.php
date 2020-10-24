@@ -50,7 +50,7 @@ class BaseController
     {
         try {
             $save = $this->service->save($request->all());
-            if(!$save){
+            if($save){
                 return $this->responseApi([], 'Dados criados com sucesso');
             }
             return $this->responseApi([], 'Falha interna ao criar dados',false);
@@ -67,7 +67,15 @@ class BaseController
      */
     public function update(Request $request, $id)
     {
-        return $this->service->update($request->all(), $id);
+        try {
+            $update = $this->service->update($request->all(), $id);
+            if($update){
+                return $this->responseApi([], 'Dados criados com sucesso');
+            }
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return $this->responseApi([], 'Falha interna ao criar dados', false, 500);
+        }
     }
 
     /**
