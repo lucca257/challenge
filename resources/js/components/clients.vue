@@ -56,8 +56,8 @@
                                 </td>
                             </template>
                             <template v-else>
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.price }}</td>
+                                <td>{{product.name}}</td>
+                                <td>{{product.email}}</td>
                                 <td>
                                     <a href="#" class="icon">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
@@ -90,7 +90,7 @@ export default {
             products: null,
             loading: false,
             editId: null,
-            baseUrl: 'api/products/',
+            baseUrl: 'api/clients/',
 
             editProductData: {
                 id: null,
