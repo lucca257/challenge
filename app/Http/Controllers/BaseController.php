@@ -67,8 +67,8 @@ class BaseController
         try {
             //verificando se item existe
             $item = $this->find($id);
-            if (!$item['success']){
-                return $this->responseApi([], 'Este registro não existe', false, 200);
+            if (!$item->original['success']){
+                return $item;
             }
 
             $this->service->update($request->all(), $id);
@@ -88,8 +88,8 @@ class BaseController
         try {
             //verificando se item existe
             $item = $this->find($id);
-            if (!$item['success']){
-                return $this->responseApi([], 'Este registro não existe', false, 200);
+            if (!$item->original['success']){
+                return $item;
             }
 
             $this->service->destroy($id);
@@ -104,7 +104,7 @@ class BaseController
      * @param int $id
      * @return mixed
      */
-    public function find(int $id)
+    public function find(int $id): JsonResponse
     {
         try {
             $data = $this->service->find($id);
