@@ -2264,12 +2264,7 @@ __webpack_require__.r(__webpack_exports__);
       loading: false,
       editId: null,
       baseUrl: 'api/products/',
-      editProductData: {
-        id: null,
-        name: null,
-        price: null,
-        description: null
-      },
+      editProductData: {},
       fields: {}
     };
   },
@@ -2300,10 +2295,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     onEdit: function onEdit(product) {
       this.editId = product.id;
-      this.editProductData.name = product.name;
-      this.editProductData.price = product.price;
-      this.editProductData.description = product.description;
-      this.editProductData.id = this.editId;
+      this.editProductData = product;
     },
     onEditSubmit: function onEditSubmit() {
       var _this3 = this;
@@ -2318,9 +2310,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     onEditCancel: function onEditCancel() {
       this.editId = null;
-      this.editProductData.name = null;
-      this.editProductData.price = null;
-      this.editProductData.id = this.editId;
+      this.editProductData = null;
     },
     submit: function submit() {
       var _this4 = this;
@@ -39210,7 +39200,11 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                      attrs: { type: "text", required: "" },
+                      attrs: {
+                        type: "text",
+                        placeholder: "nome do produto",
+                        required: ""
+                      },
                       domProps: { value: _vm.fields.name },
                       on: {
                         input: function($event) {
@@ -39243,6 +39237,7 @@ var render = function() {
                         step: "0.01",
                         "data-number-to-fixed": "2",
                         "data-number-stepfactor": "100",
+                        placeholder: "ex: 0.00",
                         required: ""
                       },
                       domProps: { value: _vm.fields.price },
@@ -39270,7 +39265,11 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                      attrs: { type: "text" },
+                      attrs: {
+                        type: "text",
+                        placeholder: "descrição",
+                        required: ""
+                      },
                       domProps: { value: _vm.fields.description },
                       on: {
                         input: function($event) {
@@ -39362,7 +39361,7 @@ var render = function() {
                                       step: "0.01",
                                       "data-number-to-fixed": "2",
                                       "data-number-stepfactor": "100",
-                                      required: ""
+                                      placeholder: "0.00"
                                     },
                                     domProps: {
                                       value: _vm.editProductData.price

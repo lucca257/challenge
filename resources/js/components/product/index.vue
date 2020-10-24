@@ -11,15 +11,15 @@
                         <form class="form-inline" @submit.prevent="submit">
                             <div class="form-group">
                                 <label>Nome</label>
-                                <input v-model="fields.name" type="text" class="form-control ml-sm-2 mr-sm-4 my-2" required>
+                                <input v-model="fields.name" type="text" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="nome do produto"  required>
                             </div>
                             <div class="form-group">
                                 <label>Preço</label>
-                                <input v-model="fields.price" type="number" value="0" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control ml-sm-2 mr-sm-4 my-2" required>
+                                <input v-model="fields.price" type="number" value="0" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="ex: 0.00" required>
                             </div>
                             <div class="form-group">
                                 <label>Descrição</label>
-                                <input v-model="fields.description" type="text" class="form-control ml-sm-2 mr-sm-4 my-2">
+                                <input v-model="fields.description" type="text" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="descrição" required>
                             </div>
                             <div class="ml-auto text-right">
                                 <button type="submit" class="btn btn-primary my-2">Adicionar</button>
@@ -49,7 +49,7 @@
                         <tr>
                             <template v-if="editId == product.id">
                                 <td><input v-model="editProductData.name" type="text"></td>
-                                <td><input v-model="editProductData.price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" required></td>
+                                <td><input v-model="editProductData.price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100"  placeholder="0.00"></td>
                                 <td><input v-model="editProductData.description" type="text"></td>
                                 <td>
                                     <span class="icon" @click="onEditSubmit()">
@@ -98,13 +98,7 @@ export default {
             editId: null,
             baseUrl: 'api/products/',
 
-            editProductData: {
-                id: null,
-                name: null,
-                price: null,
-                description: null,
-            },
-
+            editProductData: {},
             fields: {}
         }
     },
@@ -130,10 +124,7 @@ export default {
         },
         onEdit(product) {
             this.editId = product.id
-            this.editProductData.name = product.name
-            this.editProductData.price = product.price
-            this.editProductData.description = product.description
-            this.editProductData.id = this.editId
+            this.editProductData = product
         },
         onEditSubmit() {
             axios.patch(this.baseUrl + this.editId, this.editProductData).then(response => {
@@ -145,9 +136,7 @@ export default {
         },
         onEditCancel() {
             this.editId = null
-            this.editProductData.name = null
-            this.editProductData.price = null
-            this.editProductData.id = this.editId
+            this.editProductData = null
         },
         submit() {
             axios.post(this.baseUrl, this.fields).then(response => {
