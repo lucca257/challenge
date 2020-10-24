@@ -10,10 +10,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('clients')->group(function (){
-    Route::get('', [ClientController::class,'index'])->name('clients.index');
-    Route::get('create', [ClientController::class,'create'])->name("clients.create");
-    Route::get('{client}', [ClientController::class,'show'])->name('clients.show');
-    Route::get('{client}/edit', [ClientController::class,'edit'])->name('clients.edit');
+    Route::get('', [ClientController::class,'home'])->name('clients.home');
 });
 
 Route::prefix('products')->group(function (){
