@@ -114,7 +114,7 @@ export default {
     methods: {
         loadProducts() {
             axios.get(this.baseUrl, this.fields).then(response => {
-                this.products = response.data
+                this.products = response.data.data
                 this.loading = true
             }).catch(error => {
                 console.log(error)
@@ -150,7 +150,7 @@ export default {
             this.editProductData.id = this.editId
         },
         submit() {
-            axios.post('api/products', this.fields).then(response => {
+            axios.post(this.baseUrl, this.fields).then(response => {
                 this.loadProducts()
             }).catch(error => {
                 alert(error.response.data)
