@@ -11,7 +11,7 @@
                         <form class="form-inline" @submit.prevent="submit">
                             <div class="form-group">
                                 <label>Nome</label>
-                                <input v-model="fields.name" type="text" class="form-control ml-sm-2 mr-sm-4 my-2" required>
+                                <input v-model="fields.name" type="text" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="nome do cliente" required>
                             </div>
                             <div class="form-group">
                                 <label>email</label>
@@ -43,9 +43,8 @@
                         <tbody v-for="client in clients">
                         <tr>
                             <template v-if="editId == client.id">
-                                <td><input v-model="editClientData.name" type="text"></td>
-                                <td><input v-model="editClientData.price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" required></td>
-                                <td><input v-model="editClientData.description" type="text"></td>
+                                <td><input v-model="editClientData.name" type="text" style="width: 100%;"></td>
+                                <td><input v-model="editClientData.email" type="email" style="width: 100%;"></td>
                                 <td>
                                     <span class="icon" @click="onEditSubmit()">
                                       <i class="fa fa-check"></i>
@@ -92,13 +91,7 @@ export default {
             editId: null,
             baseUrl: 'api/clients/',
 
-            editClientData: {
-                id: null,
-                name: null,
-                price: null,
-                description: null,
-            },
-
+            editClientData: {},
             fields: {}
         }
     },
@@ -124,24 +117,19 @@ export default {
         },
         onEdit(client) {
             this.editId = client.id
-            this.editClientData.name = client.name
-            this.editClientData.price = client.price
-            this.editClientData.description = client.description
-            this.editClientData.id = this.editId
+            this.editClientData = client
         },
         onEditSubmit() {
             axios.patch(this.baseUrl + this.editId, this.editClientData).then(response => {
                 this.onEditCancel()
                 this.loadClients()
             }).catch(error => {
-                console.log(error)
+                console.log(error.response.data)
             })
         },
         onEditCancel() {
             this.editId = null
-            this.editClientData.name = null
-            this.editClientData.price = null
-            this.editClientData.id = this.editId
+            this.editClientData = null
         },
         submit() {
             axios.post(this.baseUrl, this.fields).then(response => {

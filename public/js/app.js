@@ -2024,7 +2024,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "client-list",
   data: function data() {
@@ -2033,12 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
       loading: false,
       editId: null,
       baseUrl: 'api/clients/',
-      editClientData: {
-        id: null,
-        name: null,
-        price: null,
-        description: null
-      },
+      editClientData: {},
       fields: {}
     };
   },
@@ -2069,10 +2063,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     onEdit: function onEdit(client) {
       this.editId = client.id;
-      this.editClientData.name = client.name;
-      this.editClientData.price = client.price;
-      this.editClientData.description = client.description;
-      this.editClientData.id = this.editId;
+      this.editClientData = client;
     },
     onEditSubmit: function onEditSubmit() {
       var _this3 = this;
@@ -2082,14 +2073,12 @@ __webpack_require__.r(__webpack_exports__);
 
         _this3.loadClients();
       })["catch"](function (error) {
-        console.log(error);
+        console.log(error.response.data);
       });
     },
     onEditCancel: function onEditCancel() {
       this.editId = null;
-      this.editClientData.name = null;
-      this.editClientData.price = null;
-      this.editClientData.id = this.editId;
+      this.editClientData = null;
     },
     submit: function submit() {
       var _this4 = this;
@@ -38760,7 +38749,11 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                      attrs: { type: "text", required: "" },
+                      attrs: {
+                        type: "text",
+                        placeholder: "nome do cliente",
+                        required: ""
+                      },
                       domProps: { value: _vm.fields.name },
                       on: {
                         input: function($event) {
@@ -38844,6 +38837,7 @@ var render = function() {
                                         expression: "editClientData.name"
                                       }
                                     ],
+                                    staticStyle: { width: "100%" },
                                     attrs: { type: "text" },
                                     domProps: {
                                       value: _vm.editClientData.name
@@ -38869,20 +38863,14 @@ var render = function() {
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.editClientData.price,
-                                        expression: "editClientData.price"
+                                        value: _vm.editClientData.email,
+                                        expression: "editClientData.email"
                                       }
                                     ],
-                                    attrs: {
-                                      type: "number",
-                                      min: "0",
-                                      step: "0.01",
-                                      "data-number-to-fixed": "2",
-                                      "data-number-stepfactor": "100",
-                                      required: ""
-                                    },
+                                    staticStyle: { width: "100%" },
+                                    attrs: { type: "email" },
                                     domProps: {
-                                      value: _vm.editClientData.price
+                                      value: _vm.editClientData.email
                                     },
                                     on: {
                                       input: function($event) {
@@ -38891,36 +38879,7 @@ var render = function() {
                                         }
                                         _vm.$set(
                                           _vm.editClientData,
-                                          "price",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.editClientData.description,
-                                        expression: "editClientData.description"
-                                      }
-                                    ],
-                                    attrs: { type: "text" },
-                                    domProps: {
-                                      value: _vm.editClientData.description
-                                    },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.editClientData,
-                                          "description",
+                                          "email",
                                           $event.target.value
                                         )
                                       }
