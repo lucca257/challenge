@@ -2026,10 +2026,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "product-list",
+  name: "client-list",
   data: function data() {
     return {
-      products: null,
+      clients: null,
       loading: false,
       editId: null,
       baseUrl: 'api/clients/',
@@ -2050,7 +2050,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get(this.baseUrl, this.fields).then(function (response) {
-        _this.products = response.data;
+        _this.clients = response.data.data;
         _this.loading = true;
       })["catch"](function (error) {
         console.log(error);
@@ -38719,12 +38719,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "product-list" }, [
+  return _c("div", { staticClass: "client-list" }, [
     _c(
       "div",
       { staticClass: "card", staticStyle: { "margin-bottom": "25px" } },
       [
-        _c("div", { staticClass: "products-create" }, [
+        _c("div", { staticClass: "clients-create" }, [
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "card" }, [
@@ -38827,12 +38827,12 @@ var render = function() {
                 [
                   _vm._m(2),
                   _vm._v(" "),
-                  _vm._l(_vm.products, function(product) {
+                  _vm._l(_vm.clients, function(client) {
                     return _c("tbody", [
                       _c(
                         "tr",
                         [
-                          _vm.editId == product.id
+                          _vm.editId == client.id
                             ? [
                                 _c("td", [
                                   _c("input", {
@@ -38957,9 +38957,9 @@ var render = function() {
                                 ])
                               ]
                             : [
-                                _c("td", [_vm._v(_vm._s(product.name))]),
+                                _c("td", [_vm._v(_vm._s(client.name))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(product.email))]),
+                                _c("td", [_vm._v(_vm._s(client.email))]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._m(3, true),
@@ -38976,7 +38976,7 @@ var render = function() {
                                         attrs: { "aria-hidden": "true" },
                                         on: {
                                           click: function($event) {
-                                            return _vm.onEdit(product)
+                                            return _vm.onEdit(client)
                                           }
                                         }
                                       })
@@ -38995,7 +38995,7 @@ var render = function() {
                                         attrs: { "aria-hidden": "true" },
                                         on: {
                                           click: function($event) {
-                                            return _vm.onDelete(product.id)
+                                            return _vm.onDelete(client.id)
                                           }
                                         }
                                       })

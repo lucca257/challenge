@@ -1,7 +1,7 @@
 <template>
-    <div class="product-list">
+    <div class="client-list">
         <div class="card" style="margin-bottom: 25px">
-            <div class="products-create">
+            <div class="clients-create">
                 <h3><i class="fa fa-users" aria-hidden="true">&nbsp;</i>Clientes</h3>
                 <div class="card">
                     <div class="card-header">
@@ -40,9 +40,9 @@
                             <th>Ações</th>
                         </tr>
                         </thead>
-                        <tbody v-for="product in products">
+                        <tbody v-for="client in clients">
                         <tr>
-                            <template v-if="editId == product.id">
+                            <template v-if="editId == client.id">
                                 <td><input v-model="editClientData.name" type="text"></td>
                                 <td><input v-model="editClientData.price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" required></td>
                                 <td><input v-model="editClientData.description" type="text"></td>
@@ -56,17 +56,17 @@
                                 </td>
                             </template>
                             <template v-else>
-                                <td>{{product.name}}</td>
-                                <td>{{product.email}}</td>
+                                <td>{{client.name}}</td>
+                                <td>{{client.email}}</td>
                                 <td>
                                     <a href="#" class="icon">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                     </a>
                                     <a href="#" class="icon">
-                                        <i class="fa fa-pencil" aria-hidden="true" @click="onEdit(product)"></i>
+                                        <i class="fa fa-pencil" aria-hidden="true" @click="onEdit(client)"></i>
                                     </a>
                                     <a href="#" class="icon">
-                                        <i class="fa fa-trash" aria-hidden="true" @click="onDelete(product.id)"></i>
+                                        <i class="fa fa-trash" aria-hidden="true" @click="onDelete(client.id)"></i>
                                     </a>
                                 </td>
                             </template>
@@ -84,10 +84,10 @@
 
 <script>
 export default {
-    name: "product-list",
+    name: "client-list",
     data() {
         return {
-            products: null,
+            clients: null,
             loading: false,
             editId: null,
             baseUrl: 'api/clients/',
@@ -108,7 +108,7 @@ export default {
     methods: {
         loadClients() {
             axios.get(this.baseUrl, this.fields).then(response => {
-                this.products = response.data
+                this.clients = response.data.data
                 this.loading = true
             }).catch(error => {
                 console.log(error)
