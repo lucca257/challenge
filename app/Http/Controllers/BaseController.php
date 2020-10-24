@@ -31,7 +31,7 @@ class BaseController
     /**
      * @return mixed
      */
-    public function index()
+    public function index(): JsonResponse
     {
         try {
             $data = $this->service->all();
@@ -46,7 +46,7 @@ class BaseController
      * @param Request $request
      * @return mixed
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         try {
             $this->service->save($request->all());
@@ -62,7 +62,7 @@ class BaseController
      * @param $id
      * @return mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): JsonResponse
     {
         try {
             //verificando se item existe
@@ -72,10 +72,10 @@ class BaseController
             }
 
             $this->service->update($request->all(), $id);
-            return $this->responseApi([], 'Dados criados com sucesso');
+            return $this->responseApi([], 'Dados alterados com sucesso');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return $this->responseApi([], 'Falha interna ao criar dados', false, 500);
+            return $this->responseApi([], 'Falha interna ao alterar dados', false, 500);
         }
     }
 
@@ -83,9 +83,21 @@ class BaseController
      * @param $id
      * @return mixed
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
-        return $this->service->destroy($id);
+        try {
+            //verificando se item existe
+            $item = $this->find($id);
+            if (!$item['success']){
+                return $this->responseApi([], 'Este registro não existe', false, 500);
+            }
+
+            $this->service->destroy($id);
+            return $this->responseApi([], 'Dados excluidos com sucesso');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return $this->responseApi([], 'Falha interna ao excluir dados', false, 500);
+        }
     }
 
     /**
@@ -94,7 +106,13 @@ class BaseController
      */
     public function find(int $id)
     {
-        return $this->service->find($id);
+        try {
+            $data = $this->service->find($id);
+            return $this->responseApi($data, 'Dados retornados com sucesso');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return $this->responseApi([], 'Falha interna ao retornar dados', false, 500);
+        }
     }
 
     /**
