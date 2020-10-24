@@ -2094,7 +2094,7 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this4 = this;
 
-      axios.post('api/products', this.fields).then(function (response) {
+      axios.post(this.baseUrl, this.fields).then(function (response) {
         _this4.loadClients();
       })["catch"](function (error) {
         alert(error.response.data);

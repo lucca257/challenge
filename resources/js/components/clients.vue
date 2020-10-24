@@ -144,7 +144,7 @@ export default {
             this.editClientData.id = this.editId
         },
         submit() {
-            axios.post('api/products', this.fields).then(response => {
+            axios.post(this.baseUrl, this.fields).then(response => {
                 this.loadClients()
             }).catch(error => {
                 alert(error.response.data)
