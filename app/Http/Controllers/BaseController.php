@@ -70,8 +70,7 @@ class BaseController
             if (!$item->original['success']){
                 return $item;
             }
-
-            $this->service->update($request->all(), $id);
+            $this->service->update($id, $request->all());
             return $this->responseApi([], 'Dados alterados com sucesso');
         } catch (\Exception $e) {
             Log::error($e->getMessage());

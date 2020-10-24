@@ -2292,7 +2292,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get(this.baseUrl, this.fields).then(function (response) {
-        _this.products = response.data;
+        _this.products = response.data.data;
         _this.loading = true;
       })["catch"](function (error) {
         console.log(error);
@@ -2336,7 +2336,7 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this4 = this;
 
-      axios.post('api/products', this.fields).then(function (response) {
+      axios.post(this.baseUrl, this.fields).then(function (response) {
         _this4.loadProducts();
       })["catch"](function (error) {
         alert(error.response.data);
@@ -6817,7 +6817,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh3[data-v-1081be77] {\r\n    text-align: center;\r\n    margin-top: 30px;\r\n    margin-bottom: 20px;\n}\n.icon i[data-v-1081be77] {\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\nh3[data-v-1081be77] {\n    text-align: center;\n    margin-top: 30px;\n    margin-bottom: 20px;\n}\n.icon i[data-v-1081be77] {\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
