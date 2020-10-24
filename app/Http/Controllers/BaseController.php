@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class BaseController
@@ -30,8 +31,15 @@ class BaseController
     /**
      * @return mixed
      */
-    public function index(){
-        return $this->service->all();
+    public function index()
+    {
+        try {
+            $data = $this->service->all();
+            return $this->responseApi($data, 'Dados retornados com sucesso');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return $this->responseApi([], 'Falha interna ao listar dados', false, 500);
+        }
     }
 
     /**
@@ -40,7 +48,16 @@ class BaseController
      */
     public function store(Request $request)
     {
-        return $this->service->save($request->all());
+        try {
+            $save = $this->service->save($request->all());
+            if(!$save){
+                return $this->responseApi([], 'Dados criados com sucesso');
+            }
+            return $this->responseApi([], 'Falha interna ao criar dados',false);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return $this->responseApi([], 'Falha interna ao criar dados', false, 500);
+        }
     }
 
     /**
@@ -63,7 +80,6 @@ class BaseController
     }
 
     /**
-     *
      * @param int $id
      * @return mixed
      */
@@ -80,7 +96,7 @@ class BaseController
      * @param int $status_code
      * @return JsonResponse
      */
-    public function responseApi($data, bool $status = true, string $message = '', int $status_code = 200): JsonResponse
+    public function responseApi($data, string $message = '', bool $status = true, int $status_code = 200): JsonResponse
     {
         return response()->json([
             'success' => $status,
