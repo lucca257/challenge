@@ -37,8 +37,9 @@ Route::group(['prefix' => 'products'], function() {
 });
 
 Route::group(['prefix' => 'orders'], function() {
-    //Route::get('', [OrderController::class,'index'])->name('api.orders.index');
-    Route::post('', [OrderController::class,'store'])->name('api.orders.store');
-    Route::patch('{order}', [OrderController::class,'update'])->name("api.orders.update");
-    Route::delete('{order}', [OrderController::class,'destroy'])->name("api.orders.destroy");
+    Route::get('', [OrderController::class,'index'])->name('orders.index');
+    Route::get('{order}', [OrderController::class,'find'])->name('orders.find');
+    Route::post('', [OrderController::class,'store'])->name('orders.store');
+    Route::patch('{order}', [OrderController::class,'update'])->name("orders.update");
+    Route::delete('{order}', [OrderController::class,'destroy'])->name("orders.destroy");
 });
