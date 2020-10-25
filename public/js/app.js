@@ -51754,6 +51754,7 @@ Vue.component('NavBar', __webpack_require__(/*! ./components/layouts/NavBar.vue 
 Vue.component('product-index', __webpack_require__(/*! ./components/product/index */ "./resources/js/components/product/index.vue")["default"]);
 Vue.component('product-edit', __webpack_require__(/*! ./components/product/edit */ "./resources/js/components/product/edit.vue")["default"]);
 Vue.component('client-index', __webpack_require__(/*! ./components/clients */ "./resources/js/components/clients.vue")["default"]);
+Vue.component('order-index', __webpack_require__(/*! ./components/clients */ "./resources/js/components/clients.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
