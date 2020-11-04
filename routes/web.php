@@ -18,7 +18,7 @@ Route::prefix('products')->group(function (){
 });
 
 Route::prefix('orders')->group(function (){
-    Route::get('', [OrderController::class,'index'])->name('orders.home');
+    Route::get('', [OrderController::class,'home'])->name('orders.home');
 });
 
 Auth::routes();
