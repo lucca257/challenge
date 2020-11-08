@@ -15,7 +15,6 @@ class CreateOrderItemsTable extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('status', ['pending','paid','canceled']);
             $table->integer('quantity');
             $table->float('price');
             $table->unsignedBigInteger('product_id');

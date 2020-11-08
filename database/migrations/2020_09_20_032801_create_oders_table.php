@@ -16,6 +16,7 @@ class CreateOdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('client_id');
+            $table->enum('status', ['pending','paid','canceled']);
             $table->timestamps();
             $table->foreign('client_id')->references('id')->on('clients');
             $table->softDeletes();
