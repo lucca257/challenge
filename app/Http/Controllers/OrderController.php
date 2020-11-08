@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Services\OrderItemService;
+use App\Services\OrderService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -16,11 +17,11 @@ class OrderController extends BaseController
 {
     /**
      * OrderController constructor.
-     * @param OrderItemService $orderItemService
+     * @param OrderService $orderService
      */
-    public function __construct(OrderItemService $orderItemService)
+    public function __construct(OrderService $orderService)
     {
-        parent::__construct($orderItemService);
+        parent::__construct($orderService);
     }
 
     /**
