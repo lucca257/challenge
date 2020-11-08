@@ -46,7 +46,7 @@ class BaseService
      */
     public function findByColumn(string $column, $value): object
     {
-        return $this->repository->where($column, $value)->get();
+        return $this->repository->findByColumn($column, $value);
     }
 
     /**
