@@ -51,11 +51,11 @@ class BaseRepository
 
     /**
      * @param array $attributes
-     * @return bool
+     * @return object
      */
-    public function save(array $attributes): bool
+    public function save(array $attributes): object
     {
-        return $this->obj->insert($attributes);
+        return $this->obj->create($attributes);
     }
 
     /**
