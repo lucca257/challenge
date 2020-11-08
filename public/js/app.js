@@ -2266,6 +2266,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -40428,7 +40442,125 @@ var render = function() {
                           "tr",
                           [
                             _vm.editId == order.id
-                              ? void 0
+                              ? [
+                                  _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.editData.name,
+                                          expression: "editData.name"
+                                        }
+                                      ],
+                                      attrs: { type: "text" },
+                                      domProps: { value: _vm.editData.name },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.editData,
+                                            "name",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.editData.price,
+                                          expression: "editData.price"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "number",
+                                        min: "0",
+                                        step: "0.01",
+                                        "data-number-to-fixed": "2",
+                                        "data-number-stepfactor": "100",
+                                        placeholder: "0.00"
+                                      },
+                                      domProps: { value: _vm.editData.price },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.editData,
+                                            "price",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.editData.description,
+                                          expression: "editData.description"
+                                        }
+                                      ],
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value: _vm.editData.description
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.editData,
+                                            "description",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass: "icon",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.onEditSubmit()
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-check" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass: "icon",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.onEditCancel()
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-ban" })]
+                                    )
+                                  ])
+                                ]
                               : [
                                   _c("td", [_vm._v(_vm._s(order.id))]),
                                   _vm._v(" "),

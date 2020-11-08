@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-body">
                         <form class="form-inline" @submit.prevent="submit">
-                            <div class="form-group" >
+                            <div class="form-group">
                                 <label for="client_id">cliente</label>
                                 <select name="client_id" id="client_id" class="form-control ml-sm-2 mr-sm-4 my-2">
                                     <option v-for="client in clients">
@@ -36,11 +36,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="quantity_id">quantidade</label>
-                                <input type="number" name="quantity" placeholder="quantidade" id="quantity_id" class="form-control ml-sm-2 mr-sm-4 my-2" required>
+                                <input type="number" name="quantity" placeholder="quantidade" id="quantity_id"
+                                       class="form-control ml-sm-2 mr-sm-4 my-2" required>
                             </div>
                             <div class="form-group">
                                 <label>Valor total do pedido</label>
-                                <input type="number" name="price" id="price_id" placeholder="Preço do produto" class="form-control ml-sm-2 mr-sm-4 my-2" required>
+                                <input type="number" name="price" id="price_id" placeholder="Preço do produto"
+                                       class="form-control ml-sm-2 mr-sm-4 my-2" required>
                             </div>
                             <div class="ml-auto text-right">
                                 <button type="submit" class="btn btn-primary my-2">Adicionar</button>
@@ -57,37 +59,49 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Produto</th>
-                                    <th>Quantidade</th>
-                                    <th>Preço total</th>
-                                    <th>#</th>
-                                </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Preço total</th>
+                                <th>#</th>
+                            </tr>
                             </thead>
                             <tbody v-for="order in orders">
-                                <tr>
-                                    <template v-if="editId == order.id">
-
-                                    </template>
-                                    <template v-else>
-                                        <td>{{ order.id }}</td>
-                                        <td>{{ findProductById(order.product_id)}}</td>
-                                        <td>{{ order.quantity }}</td>
-                                        <td>{{ order.price }}</td>
-                                        <td>
-                                            <a href="#" class="icon">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
-                                            <a href="#" class="icon">
-                                                <i class="fa fa-pencil" aria-hidden="true" @click="onEdit(order)"></i>
-                                            </a>
-                                            <a href="#" class="icon">
-                                                <i class="fa fa-trash" aria-hidden="true" @click="onDelete(order.id)"></i>
-                                            </a>
-                                        </td>
-                                    </template>
-                                </tr>
+                            <tr>
+                                <template v-if="editId == order.id">
+                                    <td><input v-model="editData.name" type="text"></td>
+                                    <td><input v-model="editData.price" type="number" min="0" step="0.01"
+                                               data-number-to-fixed="2" data-number-stepfactor="100" placeholder="0.00">
+                                    </td>
+                                    <td><input v-model="editData.description" type="text"></td>
+                                    <td>
+                                    <span class="icon" @click="onEditSubmit()">
+                                      <i class="fa fa-check"></i>
+                                    </span>
+                                        <span class="icon" @click="onEditCancel()">
+                                      <i class="fa fa-ban"></i>
+                                    </span>
+                                    </td>
+                                </template>
+                                <template v-else>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ findProductById(order.product_id)}}</td>
+                                    <td>{{ order.quantity }}</td>
+                                    <td>{{ order.price }}</td>
+                                    <td>
+                                        <a href="#" class="icon">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="#" class="icon">
+                                            <i class="fa fa-pencil" aria-hidden="true" @click="onEdit(order)"></i>
+                                        </a>
+                                        <a href="#" class="icon">
+                                            <i class="fa fa-trash" aria-hidden="true" @click="onDelete(order.id)"></i>
+                                        </a>
+                                    </td>
+                                </template>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -178,7 +192,7 @@ export default {
             this.products = response[1]
             this.orders = response[2]
             this.loading = false;
-        }).catch( error => {
+        }).catch(error => {
             console.log(error)
             alert("ops, ocorreu um erro. Tente novamente mais tarde!")
         });
