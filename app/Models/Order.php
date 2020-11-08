@@ -18,6 +18,6 @@ class Order extends Model
 
     public function oderItem()
     {
-        return $this->hasMany(OrderItem::class, 'id', 'client_id');
+        return $this->hasMany(OrderItem::class, 'order_id');
     }
 }
