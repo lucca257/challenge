@@ -5,13 +5,26 @@ namespace App\Services;
 
 
 use App\Repositories\OrderItemRepository;
+use App\Repositories\ProductRepository;
 
 class OrderItemService extends BaseService
 {
-    protected $orderItemRepository;
+    protected $productRepository;
 
-    public function __construct(OrderItemRepository $orderItemRepository)
+    public function __construct(OrderItemRepository $orderItemRepository, ProductRepository $productRepository)
     {
         parent::__construct($orderItemRepository);
+        $this->productRepository = $productRepository;
+    }
+
+    /**
+     * calculate the total price of product
+     * @param int $productId
+     * @param int $totalItens
+     * @return float|int
+     */
+    private function calculateTotalPrice(int $productId, int $totalItens){
+        $product = $this->productRepository->find($productId);
+        return $totalItens * $product->price;
     }
 }
