@@ -12,12 +12,10 @@ class OrderService extends BaseService
 {
     protected $orderRepository, $productRepository, $orderItemRepository;
 
-    public function __construct(OrderRepository $orderRepository, ProductRepository $productRepository, OrderItemRepository $orderItemRepository)
+    public function __construct(OrderRepository $orderRepository)
     {
         parent::__construct($orderRepository);
         $this->orderRepository = $orderRepository;
-        $this->productRepository = $productRepository;
-        $this->orderItemRepository = $orderItemRepository;
     }
 
     /**
@@ -27,16 +25,5 @@ class OrderService extends BaseService
     public function all(): object
     {
         return $this->orderRepository->findByRelations('oderItem');
-    }
-
-    /**
-     * calculate the total price of product
-     * @param int $productId
-     * @param int $totalItens
-     * @return float|int
-     */
-    private function calculateTotalPrice(int $productId, int $totalItens){
-        $product = $this->productRepository->find($productId);
-        return $totalItens * $product->price;
     }
 }
