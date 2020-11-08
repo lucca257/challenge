@@ -34,9 +34,8 @@ class BaseRepository
      * @param int $id
      * @return object
      */
-    public function find(int $id)
+    public function find(int $id): object
     {
-        //dd($this->obj->find($id));
         return $this->obj->find($id);
     }
 
@@ -87,8 +86,20 @@ class BaseRepository
         return $this->obj->create($attributes);
     }
 
+    /**
+     * @return object
+     */
     public function last(): object
     {
         return $this->obj->last();
+    }
+
+    /**
+     * @param $relations
+     * @return object
+     */
+    public function findByRelations($relations): object
+    {
+        return $this->obj->with($relations)->get();
     }
 }
