@@ -18,6 +18,16 @@ class OrderItemService extends BaseService
     }
 
     /**
+     * @param array $attributes
+     * @return object
+     */
+    public function save(array $attributes): object
+    {
+        $attributes['price'] = $this->calculateTotalPrice($attributes["product_id"], $attributes["quantity"]);
+        return parent::save($attributes);
+    }
+
+    /**
      * calculate the total price of product
      * @param int $productId
      * @param int $totalItens
