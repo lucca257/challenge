@@ -21,6 +21,15 @@ class OrderService extends BaseService
     }
 
     /**
+     * return all orders with relationships
+     * @return object
+     */
+    public function all(): object
+    {
+        return $this->orderRepository->findByRelations('oderItem');
+    }
+
+    /**
      * calculate the total price of product
      * @param int $productId
      * @param int $totalItens
