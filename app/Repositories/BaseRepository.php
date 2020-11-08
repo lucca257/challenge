@@ -86,4 +86,9 @@ class BaseRepository
     {
         return $this->obj->create($attributes);
     }
+
+    public function last(): object
+    {
+        return $this->obj->last();
+    }
 }
