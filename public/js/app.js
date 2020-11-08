@@ -2224,6 +2224,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -2244,12 +2286,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }],
       quantity: 0,
       //quantity of products
-      baseUrl: 'api/orders/'
+      baseUrl: 'api/orders/',
+      editId: null,
+      editData: {}
     };
   },
   methods: {
     loadClients: function loadClients() {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2258,9 +2303,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.get('api/clients');
 
               case 2:
-                return _context.abrupt("return", _context.sent);
+                response = _context.sent;
+                return _context.abrupt("return", response.data.data);
 
-              case 3:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -2270,17 +2316,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     loadProduts: function loadProduts() {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios.get('api/clients');
+                return axios.get('api/products');
 
               case 2:
-                return _context2.abrupt("return", _context2.sent);
+                response = _context2.sent;
+                return _context2.abrupt("return", response.data.data);
 
-              case 3:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -2292,6 +2340,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -2300,57 +2349,144 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.get(_this.baseUrl);
 
               case 2:
-                return _context3.abrupt("return", _context3.sent);
+                response = _context3.sent;
+                return _context3.abrupt("return", response.data.data);
 
-              case 3:
+              case 4:
               case "end":
                 return _context3.stop();
             }
           }
         }, _callee3);
       }))();
-    } // onDelete(id) {
-    //     axios.delete(this.baseUrl + id).then(response => {
-    //         this.loadClients()
-    //         alert("cliente deletado")
-    //     }).catch(error => {
-    //         console.log(error.response.data)
-    //     })
-    // },
-    // onEdit(client) {
-    //     this.editId = client.id
-    //     this.editClientData = client
-    // },
-    // onEditSubmit() {
-    //     axios.patch(this.baseUrl + this.editId, this.editClientData).then(response => {
-    //         this.onEditCancel()
-    //         this.loadClients()
-    //     }).catch(error => {
-    //         console.log(error.response.data)
-    //     })
-    // },
-    // onEditCancel() {
-    //     this.editId = null
-    //     this.editClientData = null
-    // },
-    // submit() {
-    //     axios.post(this.baseUrl, this.fields).then(response => {
-    //         this.loadClients()
-    //     }).catch(error => {
-    //         alert(error.response.data)
-    //     })
-    // },
+    },
+    onDelete: function onDelete(id) {
+      var _this2 = this;
 
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios["delete"](_this2.baseUrl + id).then(function (response) {
+                  _this2.loadClients();
+
+                  alert("cliente deletado");
+                })["catch"](function (error) {
+                  console.log(error.response.data);
+                });
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    onEdit: function onEdit(client) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _this3.editId = client.id;
+                _this3.editClientData = client;
+
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    onEditSubmit: function onEditSubmit() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return axios.patch(_this4.baseUrl + _this4.editId, _this4.editClientData).then(function (response) {
+                  _this4.onEditCancel();
+
+                  _this4.loadClients();
+                })["catch"](function (error) {
+                  console.log(error.response.data);
+                });
+
+              case 2:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
+    onEditCancel: function onEditCancel() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _this5.editId = null;
+                _this5.editClientData = null;
+
+              case 2:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }))();
+    },
+    submit: function submit() {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return axios.post(_this6.baseUrl, _this6.fields).then(function (response) {
+                  _this6.loadClients();
+                })["catch"](function (error) {
+                  alert(error.response.data);
+                });
+
+              case 2:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }))();
+    },
+    findProductById: function findProductById(product_id) {
+      var product = this.products.find(function (obj) {
+        return obj.id == product_id;
+      });
+      return product.name;
+    }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this7 = this;
 
     //waiting all promisses finish load
     Promise.all([this.loadClients(), this.loadProduts(), this.loadOrders()]).then(function (response) {
-      _this2.clients = response[0].data.data;
-      _this2.products = response[1].data.data;
-      _this2.orders = response[2].data.data;
-      _this2.loading = false;
+      _this7.clients = response[0];
+      _this7.products = response[1];
+      _this7.orders = response[2];
+      _this7.loading = false;
     })["catch"](function (error) {
       console.log(error);
       alert("ops, ocorreu um erro. Tente novamente mais tarde!");
@@ -40173,107 +40309,194 @@ var render = function() {
             "div",
             { staticClass: "card", staticStyle: { "margin-bottom": "25px" } },
             [
-              _c("div", { staticClass: "products-create" }, [
-                _vm._m(0),
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "card-header" }, [
+                  _vm._v(
+                    "\n                    Adicione um novo pedido\n                "
+                  )
+                ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "card" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _vm._v(
-                      "\n                        Adicione um novo pedido\n                    "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c(
-                      "form",
-                      {
-                        staticClass: "form-inline",
-                        on: {
-                          submit: function($event) {
-                            $event.preventDefault()
-                            return _vm.submit($event)
-                          }
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "form",
+                    {
+                      staticClass: "form-inline",
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.submit($event)
                         }
-                      },
-                      [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "client_id" } }, [
-                            _vm._v("cliente")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                              attrs: { name: "client_id", id: "client_id" }
-                            },
-                            _vm._l(_vm.clients, function(client) {
-                              return _c("option", [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(client.name) +
-                                    "\n                                    "
-                                )
-                              ])
-                            }),
-                            0
-                          )
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "client_id" } }, [
+                          _vm._v("cliente")
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "product_id" } }, [
-                            _vm._v("produto")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                              attrs: { name: "product_id", id: "product_id" }
-                            },
-                            _vm._l(_vm.products, function(product) {
-                              return _c("option", [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(product.name) +
-                                    "\n                                    "
-                                )
-                              ])
-                            }),
-                            0
-                          )
+                        _c(
+                          "select",
+                          {
+                            staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
+                            attrs: { name: "client_id", id: "client_id" }
+                          },
+                          _vm._l(_vm.clients, function(client) {
+                            return _c("option", [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(client.name) +
+                                  "\n                                "
+                              )
+                            ])
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "product_id" } }, [
+                          _vm._v("produto")
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "status_id" } }, [
-                            _vm._v("status")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                              attrs: { name: "status", id: "status_id" }
-                            },
-                            _vm._l(_vm.status, function(st) {
-                              return _c("option", [_vm._v(_vm._s(st.alias))])
-                            }),
-                            0
-                          )
+                        _c(
+                          "select",
+                          {
+                            staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
+                            attrs: { name: "product_id", id: "product_id" }
+                          },
+                          _vm._l(_vm.products, function(product) {
+                            return _c("option", [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(product.name) +
+                                  "\n                                "
+                              )
+                            ])
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "status_id" } }, [
+                          _vm._v("status")
                         ]),
                         _vm._v(" "),
-                        _vm._m(1),
-                        _vm._v(" "),
-                        _vm._m(2),
-                        _vm._v(" "),
-                        _vm._m(3)
-                      ]
-                    )
-                  ])
+                        _c(
+                          "select",
+                          {
+                            staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
+                            attrs: { name: "status", id: "status_id" }
+                          },
+                          _vm._l(_vm.status, function(st) {
+                            return _c("option", [_vm._v(_vm._s(st.alias))])
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _vm._m(3)
+                    ]
+                  )
                 ])
               ])
             ]
-          )
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v("\n                Lista de pedidos\n            ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "table-responsive" }, [
+                _c(
+                  "table",
+                  { staticClass: "table" },
+                  [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _vm._l(_vm.orders, function(order) {
+                      return _c("tbody", [
+                        _c(
+                          "tr",
+                          [
+                            _vm.editId == order.id
+                              ? void 0
+                              : [
+                                  _c("td", [_vm._v(_vm._s(order.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.findProductById(order.product_id)
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(order.quantity))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(order.price))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._m(5, true),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "icon",
+                                        attrs: { href: "#" }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-pencil",
+                                          attrs: { "aria-hidden": "true" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.onEdit(order)
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "icon",
+                                        attrs: { href: "#" }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-trash",
+                                          attrs: { "aria-hidden": "true" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.onDelete(order.id)
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ]
+                          ],
+                          2
+                        )
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            ])
+          ])
         ])
   ])
 }
@@ -40291,7 +40514,7 @@ var staticRenderFns = [
         },
         [_vm._v(" ")]
       ),
-      _vm._v("Produtos")
+      _vm._v("Pedidos")
     ])
   },
   function() {
@@ -40342,6 +40565,32 @@ var staticRenderFns = [
         { staticClass: "btn btn-primary my-2", attrs: { type: "submit" } },
         [_vm._v("Adicionar")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Produto")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantidade")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Preço total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("#")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "icon", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fa fa-eye", attrs: { "aria-hidden": "true" } })
     ])
   }
 ]

@@ -5,49 +5,91 @@
         </div>
         <div class="container" v-else>
             <div class="card" style="margin-bottom: 25px">
-                <div class="products-create">
-                    <h3><i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;</i>Produtos</h3>
-                    <div class="card">
-                        <div class="card-header">
-                            Adicione um novo pedido
-                        </div>
-                        <div class="card-body">
-                            <form class="form-inline" @submit.prevent="submit">
-                                <div class="form-group" >
-                                    <label for="client_id">cliente</label>
-                                    <select name="client_id" id="client_id" class="form-control ml-sm-2 mr-sm-4 my-2">
-                                        <option v-for="client in clients">
-                                            {{client.name}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="product_id">produto</label>
-                                    <select name="product_id" id="product_id" class="form-control ml-sm-2 mr-sm-4 my-2">
-                                        <option v-for="product in products">
-                                            {{product.name}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="status_id">status</label>
-                                    <select name="status" id="status_id" class="form-control ml-sm-2 mr-sm-4 my-2">
-                                        <option v-for="st in status">{{st.alias}}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="quantity_id">quantidade</label>
-                                    <input type="number" name="quantity" placeholder="quantidade" id="quantity_id" class="form-control ml-sm-2 mr-sm-4 my-2" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Valor total do pedido</label>
-                                    <input type="number" name="price" id="price_id" placeholder="Preço do produto" class="form-control ml-sm-2 mr-sm-4 my-2" required>
-                                </div>
-                                <div class="ml-auto text-right">
-                                    <button type="submit" class="btn btn-primary my-2">Adicionar</button>
-                                </div>
-                            </form>
-                        </div>
+                <h3><i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;</i>Pedidos</h3>
+                <div class="card">
+                    <div class="card-header">
+                        Adicione um novo pedido
+                    </div>
+                    <div class="card-body">
+                        <form class="form-inline" @submit.prevent="submit">
+                            <div class="form-group" >
+                                <label for="client_id">cliente</label>
+                                <select name="client_id" id="client_id" class="form-control ml-sm-2 mr-sm-4 my-2">
+                                    <option v-for="client in clients">
+                                        {{client.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product_id">produto</label>
+                                <select name="product_id" id="product_id" class="form-control ml-sm-2 mr-sm-4 my-2">
+                                    <option v-for="product in products">
+                                        {{product.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="status_id">status</label>
+                                <select name="status" id="status_id" class="form-control ml-sm-2 mr-sm-4 my-2">
+                                    <option v-for="st in status">{{st.alias}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity_id">quantidade</label>
+                                <input type="number" name="quantity" placeholder="quantidade" id="quantity_id" class="form-control ml-sm-2 mr-sm-4 my-2" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Valor total do pedido</label>
+                                <input type="number" name="price" id="price_id" placeholder="Preço do produto" class="form-control ml-sm-2 mr-sm-4 my-2" required>
+                            </div>
+                            <div class="ml-auto text-right">
+                                <button type="submit" class="btn btn-primary my-2">Adicionar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Lista de pedidos
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Preço total</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody v-for="order in orders">
+                                <tr>
+                                    <template v-if="editId == order.id">
+
+                                    </template>
+                                    <template v-else>
+                                        <td>{{ order.id }}</td>
+                                        <td>{{ findProductById(order.product_id)}}</td>
+                                        <td>{{ order.quantity }}</td>
+                                        <td>{{ order.price }}</td>
+                                        <td>
+                                            <a href="#" class="icon">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="#" class="icon">
+                                                <i class="fa fa-pencil" aria-hidden="true" @click="onEdit(order)"></i>
+                                            </a>
+                                            <a href="#" class="icon">
+                                                <i class="fa fa-trash" aria-hidden="true" @click="onDelete(order.id)"></i>
+                                            </a>
+                                        </td>
+                                    </template>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -71,49 +113,59 @@ export default {
             ],
             quantity: 0, //quantity of products
             baseUrl: 'api/orders/',
+
+            editId: null,
+            editData: {}
         }
     },
     methods: {
         async loadClients() {
-            return await axios.get('api/clients');
+            const response = await axios.get('api/clients');
+            return response.data.data;
         },
         async loadProduts() {
-            return await axios.get('api/clients');
+            const response = await axios.get('api/products');
+            return response.data.data;
         },
         async loadOrders() {
-            return await axios.get(this.baseUrl);
+            const response = await axios.get(this.baseUrl);
+            return response.data.data;
+        },
+        async onDelete(id) {
+            await axios.delete(this.baseUrl + id).then(response => {
+                this.loadClients()
+                alert("cliente deletado")
+            }).catch(error => {
+                console.log(error.response.data)
+            })
+        },
+        async onEdit(client) {
+            this.editId = client.id
+            this.editClientData = client
+        },
+        async onEditSubmit() {
+            await axios.patch(this.baseUrl + this.editId, this.editClientData).then(response => {
+                this.onEditCancel()
+                this.loadClients()
+            }).catch(error => {
+                console.log(error.response.data)
+            })
+        },
+        async onEditCancel() {
+            this.editId = null
+            this.editClientData = null
+        },
+        async submit() {
+            await axios.post(this.baseUrl, this.fields).then(response => {
+                this.loadClients()
+            }).catch(error => {
+                alert(error.response.data)
+            })
+        },
+        findProductById(product_id) {
+            let product = this.products.find(obj => obj.id == product_id)
+            return product.name
         }
-        // onDelete(id) {
-        //     axios.delete(this.baseUrl + id).then(response => {
-        //         this.loadClients()
-        //         alert("cliente deletado")
-        //     }).catch(error => {
-        //         console.log(error.response.data)
-        //     })
-        // },
-        // onEdit(client) {
-        //     this.editId = client.id
-        //     this.editClientData = client
-        // },
-        // onEditSubmit() {
-        //     axios.patch(this.baseUrl + this.editId, this.editClientData).then(response => {
-        //         this.onEditCancel()
-        //         this.loadClients()
-        //     }).catch(error => {
-        //         console.log(error.response.data)
-        //     })
-        // },
-        // onEditCancel() {
-        //     this.editId = null
-        //     this.editClientData = null
-        // },
-        // submit() {
-        //     axios.post(this.baseUrl, this.fields).then(response => {
-        //         this.loadClients()
-        //     }).catch(error => {
-        //         alert(error.response.data)
-        //     })
-        // },
     },
     mounted() {
         //waiting all promisses finish load
@@ -122,9 +174,9 @@ export default {
             this.loadProduts(),
             this.loadOrders()
         ]).then(response => {
-            this.clients = response[0].data.data
-            this.products = response[1].data.data
-            this.orders = response[2].data.data
+            this.clients = response[0]
+            this.products = response[1]
+            this.orders = response[2]
             this.loading = false;
         }).catch( error => {
             console.log(error)
