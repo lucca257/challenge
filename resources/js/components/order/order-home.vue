@@ -86,7 +86,7 @@
                                 </template>
                                 <template v-else>
                                     <td>{{ order.id }}</td>
-                                    <td>{{ order.status }}</td>
+                                    <td>{{ getStatus(order.status) }}</td>
                                     <td>{{ totalPrice(order.id)}}</td>
                                     <td>{{ formatDateTime(order.created_at) }}</td>
                                     <td>
@@ -121,9 +121,9 @@ export default {
             products: null,
             orders: null,
             status: [
-                {status: 'paid', alias: 'pago'},
-                {status: 'pending', alias: 'pendente'},
-                {status: 'canceled', alias: 'cancelado'},
+                {type: 'paid', alias: 'pago'},
+                {type: 'pending', alias: 'pendente'},
+                {type: 'canceled', alias: 'cancelado'},
             ],
             quantity: 0, //quantity of products
             baseUrl: 'api/orders/',
@@ -182,11 +182,15 @@ export default {
             order.oder_item.map((item) => {
                 sum += item.price
             })
-            return sum;
+            return sum
         },
         formatDateTime(date){
             const newDate = date.split("T")
-            return newDate[0];
+            return newDate[0]
+        },
+        getStatus(status) {
+            const stats = this.status.find(obj => obj.type === status)
+            return stats.alias
         }
     },
     mounted() {

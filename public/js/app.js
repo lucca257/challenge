@@ -2289,13 +2289,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       products: null,
       orders: null,
       status: [{
-        status: 'paid',
+        type: 'paid',
         alias: 'pago'
       }, {
-        status: 'pending',
+        type: 'pending',
         alias: 'pendente'
       }, {
-        status: 'canceled',
+        type: 'canceled',
         alias: 'cancelado'
       }],
       quantity: 0,
@@ -2498,6 +2498,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     formatDateTime: function formatDateTime(date) {
       var newDate = date.split("T");
       return newDate[0];
+    },
+    getStatus: function getStatus(status) {
+      var stats = this.status.find(function (obj) {
+        return obj.type === status;
+      });
+      return stats.alias;
     }
   },
   mounted: function mounted() {
@@ -40572,7 +40578,9 @@ var render = function() {
                               : [
                                   _c("td", [_vm._v(_vm._s(order.id))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(order.status))]),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.getStatus(order.status)))
+                                  ]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.totalPrice(order.id)))
