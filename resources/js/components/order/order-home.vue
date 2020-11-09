@@ -60,10 +60,10 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Produto</th>
-                                <th>Quantidade</th>
+                                <th>Código</th>
+                                <th>Status</th>
                                 <th>Preço total</th>
+                                <th>Data</th>
                                 <th>#</th>
                             </tr>
                             </thead>
@@ -86,9 +86,9 @@
                                 </template>
                                 <template v-else>
                                     <td>{{ order.id }}</td>
-                                    <td>{{ findProductById(order.product_id)}}</td>
-                                    <td>{{ order.quantity }}</td>
-                                    <td>{{ order.price }}</td>
+                                    <td>{{ order.status }}</td>
+                                    <td>{{ totalPrice(order.id)}}</td>
+                                    <td>{{ formatDateTime(order.created_at) }}</td>
                                     <td>
                                         <a href="#" class="icon">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
@@ -176,9 +176,17 @@ export default {
                 alert(error.response.data)
             })
         },
-        findProductById(product_id) {
-            let product = this.products.find(obj => obj.id == product_id)
-            return product.name
+        totalPrice(order_id) {
+            let sum = 0;
+            const order = this.orders.find(obj => obj.id === order_id)
+            order.oder_item.map((item) => {
+                sum += item.price
+            })
+            return sum;
+        },
+        formatDateTime(date){
+            const newDate = date.split("T")
+            return newDate[0];
         }
     },
     mounted() {

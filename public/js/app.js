@@ -2485,11 +2485,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee8);
       }))();
     },
-    findProductById: function findProductById(product_id) {
-      var product = this.products.find(function (obj) {
-        return obj.id == product_id;
+    totalPrice: function totalPrice(order_id) {
+      var sum = 0;
+      var order = this.orders.find(function (obj) {
+        return obj.id === order_id;
       });
-      return product.name;
+      order.oder_item.map(function (item) {
+        sum += item.price;
+      });
+      return sum;
+    },
+    formatDateTime: function formatDateTime(date) {
+      var newDate = date.split("T");
+      return newDate[0];
     }
   },
   mounted: function mounted() {
@@ -40564,17 +40572,19 @@ var render = function() {
                               : [
                                   _c("td", [_vm._v(_vm._s(order.id))]),
                                   _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(order.status))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.totalPrice(order.id)))
+                                  ]),
+                                  _vm._v(" "),
                                   _c("td", [
                                     _vm._v(
                                       _vm._s(
-                                        _vm.findProductById(order.product_id)
+                                        _vm.formatDateTime(order.created_at)
                                       )
                                     )
                                   ]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(order.quantity))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(order.price))]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._m(5, true),
@@ -40705,13 +40715,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("ID")]),
+        _c("th", [_vm._v("Código")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Produto")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Quantidade")]),
+        _c("th", [_vm._v("Status")]),
         _vm._v(" "),
         _c("th", [_vm._v("Preço total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Data")]),
         _vm._v(" "),
         _c("th", [_vm._v("#")])
       ])
