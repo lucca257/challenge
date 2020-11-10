@@ -7,10 +7,22 @@ namespace App\Services;
 use App\Repositories\OrderItemRepository;
 use App\Repositories\ProductRepository;
 
+/**
+ * Class OrderItemService
+ * @package App\Services
+ */
 class OrderItemService extends BaseService
 {
+    /**
+     * @var ProductRepository
+     */
     protected $productRepository;
 
+    /**
+     * OrderItemService constructor.
+     * @param OrderItemRepository $orderItemRepository
+     * @param ProductRepository $productRepository
+     */
     public function __construct(OrderItemRepository $orderItemRepository, ProductRepository $productRepository)
     {
         parent::__construct($orderItemRepository);
