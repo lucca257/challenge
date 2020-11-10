@@ -40,6 +40,15 @@ class OrderItemService extends BaseService
     }
 
     /**
+     * @param $product_id
+     * @return mixed
+     */
+    public function validateProductExists($product_id)
+    {
+        return $this->productRepository->find($product_id);
+    }
+
+    /**
      * calculate the total price of product
      * @param int $productId
      * @param int $totalItens
