@@ -32,7 +32,7 @@ class BaseService
 
     /**
      * @param int $id
-     * @return object
+     * @return mixed
      */
     public function find(int $id)
     {
