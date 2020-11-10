@@ -40,20 +40,32 @@ class OrderController extends BaseController
         return view('order.index');
     }
 
+    /**
+     * saving order and itens
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function store(Request $request): JsonResponse
     {
         try {
+            $order_request = $request->get('order');
+            $item_request = $request->get('item');
             $order = $this->orderService->save([
-                "client_id" => $request->get('client_id'),
-                "status" => $request->get('status')
+                "client_id" => $order_request["client_id"],
+                "status" => $order_request["status"]
             ]);
-            $save = $this->orderItemService->save([
-                "product_id" => $request->get('product_id'),
-                "quantity" => $request->get('quantity'),
-                "order_id" => $order->id
-            ]);
+
+            $save = [];
+            foreach ($item_request as $item){
+                $save[] = $this->orderItemService->save([
+                    "product_id" => $item["product_id"],
+                    "quantity" => $item["product_id"],
+                    "order_id" => $order->id
+                ]);
+            }
             return $this->responseApi(["order" => $order, "item" => $save], 'Dados criados com sucesso');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             Log::error($e->getMessage());
             return $this->responseApi([], 'Falha interna ao criar dados', false, 500);
         }
