@@ -2280,6 +2280,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -2504,6 +2506,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return obj.type === status;
       });
       return stats.alias;
+    },
+    getClient: function getClient(client_id) {
+      var client = this.clients.find(function (obj) {
+        return obj.id === client_id;
+      });
+      return client.name;
     }
   },
   mounted: function mounted() {
@@ -40579,6 +40587,12 @@ var render = function() {
                                   _c("td", [_vm._v(_vm._s(order.id))]),
                                   _vm._v(" "),
                                   _c("td", [
+                                    _vm._v(
+                                      _vm._s(_vm.getClient(order.client_id))
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
                                     _vm._v(_vm._s(_vm.getStatus(order.status)))
                                   ]),
                                   _vm._v(" "),
@@ -40724,6 +40738,8 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Código")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cliente")]),
         _vm._v(" "),
         _c("th", [_vm._v("Status")]),
         _vm._v(" "),

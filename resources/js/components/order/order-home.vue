@@ -61,6 +61,7 @@
                             <thead>
                             <tr>
                                 <th>Código</th>
+                                <th>Cliente</th>
                                 <th>Status</th>
                                 <th>Preço total</th>
                                 <th>Data</th>
@@ -86,6 +87,7 @@
                                 </template>
                                 <template v-else>
                                     <td>{{ order.id }}</td>
+                                    <td>{{ getClient(order.client_id)}}</td>
                                     <td>{{ getStatus(order.status) }}</td>
                                     <td>{{ totalPrice(order.id)}}</td>
                                     <td>{{ formatDateTime(order.created_at) }}</td>
@@ -191,6 +193,10 @@ export default {
         getStatus(status) {
             const stats = this.status.find(obj => obj.type === status)
             return stats.alias
+        },
+        getClient(client_id){
+            const client = this.clients.find(obj => obj.id === client_id)
+            return client.name
         }
     },
     mounted() {
