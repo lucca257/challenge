@@ -11,41 +11,57 @@
                         Adicione um novo pedido
                     </div>
                     <div class="card-body">
-                        <form class="form-inline" @submit.prevent="submit">
-                            <div class="form-group">
-                                <label for="client_id">cliente</label>
-                                <select name="client_id" id="client_id" class="form-control ml-sm-2 mr-sm-4 my-2">
-                                    <option v-for="client in clients">
-                                        {{client.name}}
-                                    </option>
-                                </select>
+                        <form @submit.prevent="submit">
+                            <div class="row form-inline">
+                                <div class="form-group col-md-4">
+                                    <label for="client_id">cliente &nbsp;</label>
+                                    <select name="client_id" id="client_id" class="form-control ml-sm-2 mr-sm-4 my-2">
+                                        <option v-for="client in clients">
+                                            {{client.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="status_id">status &nbsp;</label>
+                                    <select name="status" id="status_id" class="form-control ml-sm-2 mr-sm-4 my-2">
+                                        <option v-for="st in status">{{st.alias}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-primary">Adicionar produto +</button>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="product_id">produto</label>
-                                <select name="product_id" id="product_id" class="form-control ml-sm-2 mr-sm-4 my-2">
-                                    <option v-for="product in products">
-                                        {{product.name}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="status_id">status</label>
-                                <select name="status" id="status_id" class="form-control ml-sm-2 mr-sm-4 my-2">
-                                    <option v-for="st in status">{{st.alias}}</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="quantity_id">quantidade</label>
-                                <input type="number" name="quantity" placeholder="quantidade" id="quantity_id"
-                                       class="form-control ml-sm-2 mr-sm-4 my-2" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Valor total do pedido</label>
-                                <input type="number" name="price" id="price_id" placeholder="Preço do produto"
-                                       class="form-control ml-sm-2 mr-sm-4 my-2" required>
-                            </div>
-                            <div class="ml-auto text-right">
-                                <button type="submit" class="btn btn-primary my-2">Adicionar</button>
+                            <div class="row form-inline">
+                                <div class="form-group col-md-4">
+                                    <label for="product_id">produto &nbsp;</label>
+                                    <select name="product_id" id="product_id" class="form-control ml-sm-2 mr-sm-4 my-2" >
+                                        <option v-for="product in products">
+                                            {{product.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="quantity_id">quantidade &nbsp;</label>
+                                    <select name="quantity" id="quantity_id" class="form-control ml-sm-4 mr-sm-4 my-2">
+                                        <option>
+                                            0
+                                        </option>
+                                        <option>
+                                            1
+                                        </option>
+                                        <option>
+                                            2
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-primary">Remover produto - </button>
+                                </div>
                             </div>
                         </form>
                     </div>
