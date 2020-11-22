@@ -21,17 +21,17 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label for="status_id">status &nbsp;</label>
                                     <select name="status" id="status_id" class="form-control ml-sm-2 mr-sm-4 my-2">
                                         <option v-for="st in status">{{st.alias}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-primary" @click="addInput">Adicionar produto +</button>
+                                    <button type="button" class="btn btn-secondary btn-block" @click="addInput">Adicionar produto +</button>
                                 </div>
-                                <div class="col-md-1">
-                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-primary btn-block">Salvar</button>
                                 </div>
                             </div>
                             <div class="row form-inline" v-for="(input,k) in inputs" :key="k">
@@ -48,7 +48,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label for="quantity_id">quantidade &nbsp;</label>
                                     <select name="quantity" id="quantity_id" class="form-control ml-sm-4 mr-sm-4 my-2" v-model="input.quantaty">
                                         <option value="0" disabled>
@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <button type="submit" class="btn btn-primary" @click="removeInput">Remover produto - </button>
+                                    <button type="submit" class="btn btn-secondary btn-block" @click="removeInput">Remover produto - </button>
                                 </div>
                             </div>
                         </form>

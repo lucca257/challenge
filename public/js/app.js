@@ -40422,7 +40422,7 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c("div", { staticClass: "form-group col-md-3" }, [
                           _c("label", { attrs: { for: "status_id" } }, [
                             _vm._v("status  ")
                           ]),
@@ -40444,7 +40444,7 @@ var render = function() {
                           _c(
                             "button",
                             {
-                              staticClass: "btn btn-primary",
+                              staticClass: "btn btn-secondary btn-block",
                               attrs: { type: "button" },
                               on: { click: _vm.addInput }
                             },
@@ -40534,7 +40534,7 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "form-group col-md-4" }, [
+                            _c("div", { staticClass: "form-group col-md-3" }, [
                               _c("label", { attrs: { for: "quantity_id" } }, [
                                 _vm._v("quantidade  ")
                               ]),
@@ -40609,7 +40609,7 @@ var render = function() {
                               _c(
                                 "button",
                                 {
-                                  staticClass: "btn btn-primary",
+                                  staticClass: "btn btn-secondary btn-block",
                                   attrs: { type: "submit" },
                                   on: { click: _vm.removeInput }
                                 },
@@ -40867,10 +40867,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-1" }, [
+    return _c("div", { staticClass: "col-md-2" }, [
       _c(
         "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        { staticClass: "btn btn-primary btn-block", attrs: { type: "submit" } },
         [_vm._v("Salvar")]
       )
     ])
