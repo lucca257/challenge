@@ -2282,6 +2282,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -2291,20 +2311,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       products: null,
       orders: null,
       status: [{
-        type: 'paid',
-        alias: 'pago'
-      }, {
         type: 'pending',
         alias: 'pendente'
+      }, {
+        type: 'paid',
+        alias: 'pago'
       }, {
         type: 'canceled',
         alias: 'cancelado'
       }],
-      quantity: 0,
-      //quantity of products
       baseUrl: 'api/orders/',
       editId: null,
-      editData: {}
+      editData: {},
+      inputs: [{
+        product: 0,
+        quantaty: 0
+      }]
     };
   },
   methods: {
@@ -2512,6 +2534,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return obj.id === client_id;
       });
       return client.name;
+    },
+    addInput: function addInput() {
+      this.inputs.push({
+        product: 0,
+        quantaty: 0
+      });
+    },
+    removeInput: function removeInput(item) {
+      this.inputs.splice(item, 1);
     }
   },
   mounted: function mounted() {
@@ -40358,7 +40389,6 @@ var render = function() {
                   _c(
                     "form",
                     {
-                      staticClass: "form-inline",
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
@@ -40367,78 +40397,230 @@ var render = function() {
                       }
                     },
                     [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "client_id" } }, [
-                          _vm._v("cliente")
+                      _c("div", { staticClass: "row form-inline" }, [
+                        _c("div", { staticClass: "form-group col-md-4" }, [
+                          _c("label", { attrs: { for: "client_id" } }, [
+                            _vm._v("cliente  ")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
+                              attrs: { name: "client_id", id: "client_id" }
+                            },
+                            _vm._l(_vm.clients, function(client) {
+                              return _c("option", [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(client.name) +
+                                    "\n                                    "
+                                )
+                              ])
+                            }),
+                            0
+                          )
                         ]),
                         _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                            attrs: { name: "client_id", id: "client_id" }
-                          },
-                          _vm._l(_vm.clients, function(client) {
-                            return _c("option", [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(client.name) +
-                                  "\n                                "
+                        _c("div", { staticClass: "form-group col-md-4" }, [
+                          _c("label", { attrs: { for: "status_id" } }, [
+                            _vm._v("status  ")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
+                              attrs: { name: "status", id: "status_id" }
+                            },
+                            _vm._l(_vm.status, function(st) {
+                              return _c("option", [_vm._v(_vm._s(st.alias))])
+                            }),
+                            0
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-3" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "button" },
+                              on: { click: _vm.addInput }
+                            },
+                            [_vm._v("Adicionar produto +")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(1)
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.inputs, function(input, k) {
+                        return _c(
+                          "div",
+                          { key: k, staticClass: "row form-inline" },
+                          [
+                            _c("div", { staticClass: "form-group col-md-4" }, [
+                              _c("label", { attrs: { for: "product_id" } }, [
+                                _vm._v("produto  ")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: input.product,
+                                      expression: "input.product"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control ml-sm-2 mr-sm-4 my-2",
+                                  attrs: {
+                                    name: "product_id",
+                                    id: "product_id"
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        input,
+                                        "product",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "0", disabled: "" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                        Selectione seu produto\n                                    "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.products, function(product) {
+                                    return _c(
+                                      "option",
+                                      { domProps: { value: product.id } },
+                                      [
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(product.name) +
+                                            "\n                                    "
+                                        )
+                                      ]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group col-md-4" }, [
+                              _c("label", { attrs: { for: "quantity_id" } }, [
+                                _vm._v("quantidade  ")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: input.quantaty,
+                                      expression: "input.quantaty"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control ml-sm-4 mr-sm-4 my-2",
+                                  attrs: {
+                                    name: "quantity",
+                                    id: "quantity_id"
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        input,
+                                        "quantaty",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "0", disabled: "" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                        0\n                                    "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "1" } }, [
+                                    _vm._v(
+                                      "\n                                        1\n                                    "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "2" } }, [
+                                    _vm._v(
+                                      "\n                                        2\n                                    "
+                                    )
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-3" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: { type: "submit" },
+                                  on: { click: _vm.removeInput }
+                                },
+                                [_vm._v("Remover produto - ")]
                               )
                             ])
-                          }),
-                          0
+                          ]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "product_id" } }, [
-                          _vm._v("produto")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                            attrs: { name: "product_id", id: "product_id" }
-                          },
-                          _vm._l(_vm.products, function(product) {
-                            return _c("option", [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(product.name) +
-                                  "\n                                "
-                              )
-                            ])
-                          }),
-                          0
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "status_id" } }, [
-                          _vm._v("status")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                            attrs: { name: "status", id: "status_id" }
-                          },
-                          _vm._l(_vm.status, function(st) {
-                            return _c("option", [_vm._v(_vm._s(st.alias))])
-                          }),
-                          0
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _vm._m(3)
-                    ]
+                      })
+                    ],
+                    2
                   )
                 ])
               ])
@@ -40456,7 +40638,7 @@ var render = function() {
                   "table",
                   { staticClass: "table" },
                   [
-                    _vm._m(4),
+                    _vm._m(2),
                     _vm._v(" "),
                     _vm._l(_vm.orders, function(order) {
                       return _c("tbody", [
@@ -40609,7 +40791,7 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
-                                    _vm._m(5, true),
+                                    _vm._m(3, true),
                                     _vm._v(" "),
                                     _c(
                                       "a",
@@ -40685,49 +40867,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "quantity_id" } }, [_vm._v("quantidade")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-        attrs: {
-          type: "number",
-          name: "quantity",
-          placeholder: "quantidade",
-          id: "quantity_id",
-          required: ""
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Valor total do pedido")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-        attrs: {
-          type: "number",
-          name: "price",
-          id: "price_id",
-          placeholder: "Preço do produto",
-          required: ""
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "ml-auto text-right" }, [
+    return _c("div", { staticClass: "col-md-1" }, [
       _c(
         "button",
-        { staticClass: "btn btn-primary my-2", attrs: { type: "submit" } },
-        [_vm._v("Adicionar")]
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Salvar")]
       )
     ])
   },
@@ -53962,8 +54106,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\pedro\OneDrive\Documentos\challenge\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\pedro\OneDrive\Documentos\challenge\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/luccazx/PhpstormProjects/challenge/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/luccazx/PhpstormProjects/challenge/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

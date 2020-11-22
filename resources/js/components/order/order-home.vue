@@ -28,17 +28,21 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="submit" class="btn btn-primary">Adicionar produto +</button>
+                                    <button type="button" class="btn btn-primary" @click="addInput">Adicionar produto +</button>
                                 </div>
                                 <div class="col-md-1">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
                                 </div>
                             </div>
-                            <div class="row form-inline">
+                            <div class="row form-inline" v-for="(input,k) in inputs" :key="k">
                                 <div class="form-group col-md-4">
                                     <label for="product_id">produto &nbsp;</label>
-                                    <select name="product_id" id="product_id" class="form-control ml-sm-2 mr-sm-4 my-2" >
-                                        <option v-for="product in products">
+                                    <select name="product_id" id="product_id" class="form-control ml-sm-2 mr-sm-4 my-2" v-model="input.product">
+                                        <option value="0" disabled>
+                                            Selectione seu produto
+                                        </option>
+                                        <option v-for="product in products"
+                                                v-bind:value="product.id">
                                             {{product.name}}
                                         </option>
                                     </select>
@@ -46,21 +50,21 @@
 
                                 <div class="form-group col-md-4">
                                     <label for="quantity_id">quantidade &nbsp;</label>
-                                    <select name="quantity" id="quantity_id" class="form-control ml-sm-4 mr-sm-4 my-2">
-                                        <option>
+                                    <select name="quantity" id="quantity_id" class="form-control ml-sm-4 mr-sm-4 my-2" v-model="input.quantaty">
+                                        <option value="0" disabled>
                                             0
                                         </option>
-                                        <option>
+                                        <option value="1">
                                             1
                                         </option>
-                                        <option>
+                                        <option value="2" >
                                             2
                                         </option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-3">
-                                    <button type="submit" class="btn btn-primary">Remover produto - </button>
+                                    <button type="submit" class="btn btn-primary" @click="removeInput">Remover produto - </button>
                                 </div>
                             </div>
                         </form>
@@ -139,15 +143,19 @@ export default {
             products: null,
             orders: null,
             status: [
-                {type: 'paid', alias: 'pago'},
                 {type: 'pending', alias: 'pendente'},
+                {type: 'paid', alias: 'pago'},
                 {type: 'canceled', alias: 'cancelado'},
             ],
-            quantity: 0, //quantity of products
             baseUrl: 'api/orders/',
 
             editId: null,
-            editData: {}
+            editData: {},
+
+            inputs: [{
+                product: 0,
+                quantaty: 0
+            }]
         }
     },
     methods: {
@@ -213,6 +221,15 @@ export default {
         getClient(client_id){
             const client = this.clients.find(obj => obj.id === client_id)
             return client.name
+        },
+        addInput(){
+            this.inputs.push({
+                product: 0,
+                quantaty: 0
+            })
+        },
+        removeInput(item){
+            this.inputs.splice(item, 1)
         }
     },
     mounted() {
