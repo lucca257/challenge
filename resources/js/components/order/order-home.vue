@@ -66,6 +66,10 @@
                                 <div class="col-md-3">
                                     <button type="submit" class="btn btn-secondary btn-block" @click="removeInput">Remover produto - </button>
                                 </div>
+
+                                <div class="col-md-10">
+                                    <p class="ml-auto text-right mt-3 mr-4 font-weight-bold text-uppercase">total da compra: R$ 999,00</p>
+                                </div>
                             </div>
                         </form>
                     </div>
