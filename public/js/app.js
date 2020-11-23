@@ -2305,7 +2305,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -2325,6 +2324,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         alias: 'cancelado'
       }],
       baseUrl: 'api/orders/',
+      totalPrice: 0,
       editId: null,
       editData: {},
       inputs: [{
@@ -2513,16 +2513,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee8);
       }))();
     },
-    totalPrice: function totalPrice(order_id) {
-      var sum = 0;
-      var order = this.orders.find(function (obj) {
-        return obj.id === order_id;
-      });
-      order.oder_item.map(function (item) {
-        sum += item.price;
-      });
-      return sum;
-    },
     formatDateTime: function formatDateTime(date) {
       var newDate = date.split("T");
       return newDate[0];
@@ -2547,17 +2537,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     removeInput: function removeInput(item) {
       this.inputs.splice(item, 1);
+    },
+    calculateTotalPrice: function calculateTotalPrice() {
+      var _this7 = this;
+
+      this.totalPrice = 0;
+      var selectedProducts = this.inputs.map(function (item) {
+        var product = _this7.products.find(function (obj) {
+          return item.product === obj.id;
+        });
+
+        _this7.totalPrice += product.price * item.quantaty;
+      });
     }
   },
   mounted: function mounted() {
-    var _this7 = this;
+    var _this8 = this;
 
     //waiting all promisses finish load
     Promise.all([this.loadClients(), this.loadProduts(), this.loadOrders()]).then(function (response) {
-      _this7.clients = response[0];
-      _this7.products = response[1];
-      _this7.orders = response[2];
-      _this7.loading = false;
+      _this8.clients = response[0];
+      _this8.products = response[1];
+      _this8.orders = response[2];
+      _this8.loading = false;
     })["catch"](function (error) {
       console.log(error);
       alert("ops, ocorreu um erro. Tente novamente mais tarde!");
@@ -40487,26 +40489,29 @@ var render = function() {
                                     id: "product_id"
                                   },
                                   on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        input,
-                                        "product",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    }
+                                    change: [
+                                      function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          input,
+                                          "product",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      },
+                                      _vm.calculateTotalPrice
+                                    ]
                                   }
                                 },
                                 [
@@ -40561,26 +40566,29 @@ var render = function() {
                                     id: "quantity_id"
                                   },
                                   on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        input,
-                                        "quantaty",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    }
+                                    change: [
+                                      function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          input,
+                                          "quantaty",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      },
+                                      _vm.calculateTotalPrice
+                                    ]
                                   }
                                 },
                                 [
@@ -40619,12 +40627,25 @@ var render = function() {
                                 },
                                 [_vm._v("Remover produto - ")]
                               )
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(2, true)
+                            ])
                           ]
                         )
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-10" }, [
+                        _c(
+                          "p",
+                          {
+                            staticClass:
+                              "text-right mt-3 mr-5 mr-sm-3 font-weight-bold text-uppercase"
+                          },
+                          [
+                            _vm._v(
+                              "total da compra: R$ " + _vm._s(this.totalPrice)
+                            )
+                          ]
+                        )
+                      ])
                     ],
                     2
                   )
@@ -40644,7 +40665,7 @@ var render = function() {
                   "table",
                   { staticClass: "table" },
                   [
-                    _vm._m(3),
+                    _vm._m(2),
                     _vm._v(" "),
                     _vm._l(_vm.orders, function(order) {
                       return _c("tbody", [
@@ -40797,7 +40818,7 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
-                                    _vm._m(4, true),
+                                    _vm._m(3, true),
                                     _vm._v(" "),
                                     _c(
                                       "a",
@@ -40878,21 +40899,6 @@ var staticRenderFns = [
         "button",
         { staticClass: "btn btn-primary btn-block", attrs: { type: "submit" } },
         [_vm._v("Salvar")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-10" }, [
-      _c(
-        "p",
-        {
-          staticClass:
-            "text-right mt-3 mr-5 mr-sm-3 font-weight-bold text-uppercase"
-        },
-        [_vm._v("total da compra: R$ 999,00")]
       )
     ])
   },

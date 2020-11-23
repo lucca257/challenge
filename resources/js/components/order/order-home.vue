@@ -37,7 +37,7 @@
                             <div class="row form-inline" v-for="(input,k) in inputs" :key="k">
                                 <div class="form-group col-md-4">
                                     <label for="product_id">produto &nbsp;</label>
-                                    <select name="product_id" id="product_id" class="form-control ml-sm-2 mr-sm-4 my-2" v-model="input.product">
+                                    <select name="product_id" id="product_id" class="form-control ml-sm-2 mr-sm-4 my-2" v-model="input.product" v-on:change="calculateTotalPrice">
                                         <option value="0" disabled>
                                             Selectione seu produto
                                         </option>
@@ -50,7 +50,7 @@
 
                                 <div class="form-group col-md-3">
                                     <label for="quantity_id">quantidade &nbsp;</label>
-                                    <select name="quantity" id="quantity_id" class="form-control ml-sm-4 mr-sm-4 my-2" v-model="input.quantaty">
+                                    <select name="quantity" id="quantity_id" class="form-control ml-sm-4 mr-sm-4 my-2" v-model="input.quantaty" v-on:change="calculateTotalPrice">
                                         <option value="0" disabled>
                                             0
                                         </option>
@@ -66,10 +66,9 @@
                                 <div class="col-md-3">
                                     <button type="submit" class="btn btn-secondary btn-block" @click="removeInput">Remover produto - </button>
                                 </div>
-
-                                <div class="col-md-10">
-                                    <p class="text-right mt-3 mr-5 mr-sm-3 font-weight-bold text-uppercase">total da compra: R$ 999,00</p>
-                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <p class="text-right mt-3 mr-5 mr-sm-3 font-weight-bold text-uppercase">total da compra: R$ {{this.totalPrice}}</p>
                             </div>
                         </form>
                     </div>
@@ -152,10 +151,9 @@ export default {
                 {type: 'canceled', alias: 'cancelado'},
             ],
             baseUrl: 'api/orders/',
-
+            totalPrice: 0,
             editId: null,
             editData: {},
-
             inputs: [{
                 product: 0,
                 quantaty: 0
@@ -206,14 +204,6 @@ export default {
                 alert(error.response.data)
             })
         },
-        totalPrice(order_id) {
-            let sum = 0;
-            const order = this.orders.find(obj => obj.id === order_id)
-            order.oder_item.map((item) => {
-                sum += item.price
-            })
-            return sum
-        },
         formatDateTime(date){
             const newDate = date.split("T")
             return newDate[0]
@@ -234,7 +224,14 @@ export default {
         },
         removeInput(item){
             this.inputs.splice(item, 1)
-        }
+        },
+        calculateTotalPrice() {
+            this.totalPrice = 0
+            const selectedProducts = this.inputs.map((item) => {
+                let product = this.products.find(obj => item.product === obj.id)
+                this.totalPrice += product.price * item.quantaty
+            })
+        },
     },
     mounted() {
         //waiting all promisses finish load
