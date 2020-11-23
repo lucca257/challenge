@@ -68,7 +68,7 @@
                                 </div>
 
                                 <div class="col-md-10">
-                                    <p class="ml-auto text-right mt-3 mr-4 font-weight-bold text-uppercase">total da compra: R$ 999,00</p>
+                                    <p class="text-right mt-3 mr-5 mr-sm-3 font-weight-bold text-uppercase">total da compra: R$ 999,00</p>
                                 </div>
                             </div>
                         </form>

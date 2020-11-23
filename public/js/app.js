@@ -40890,7 +40890,7 @@ var staticRenderFns = [
         "p",
         {
           staticClass:
-            "ml-auto text-right mt-3 mr-4 font-weight-bold text-uppercase"
+            "text-right mt-3 mr-5 mr-sm-3 font-weight-bold text-uppercase"
         },
         [_vm._v("total da compra: R$ 999,00")]
       )
