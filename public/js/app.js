@@ -2535,9 +2535,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         quantaty: 0
       });
     },
-    removeInput: function removeInput(item) {
-      this.inputs.splice(item, 1);
-    },
     calculateTotalPrice: function calculateTotalPrice() {
       var _this7 = this;
 
@@ -2549,6 +2546,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         _this7.totalPrice += product.price * item.quantaty;
       });
+    },
+    removeInput: function removeInput(item) {
+      this.inputs.splice(item, 1);
+      this.calculateTotalPrice();
     }
   },
   mounted: function mounted() {

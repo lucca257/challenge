@@ -222,15 +222,16 @@ export default {
                 quantaty: 0
             })
         },
-        removeInput(item){
-            this.inputs.splice(item, 1)
-        },
         calculateTotalPrice() {
             this.totalPrice = 0
             const selectedProducts = this.inputs.map((item) => {
                 let product = this.products.find(obj => item.product === obj.id)
                 this.totalPrice += product.price * item.quantaty
             })
+        },
+        removeInput(item){
+            this.inputs.splice(item, 1)
+            this.calculateTotalPrice()
         },
     },
     mounted() {
