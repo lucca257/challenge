@@ -2304,7 +2304,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -2327,10 +2326,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       totalPrice: 0,
       editId: null,
       editData: {},
-      inputs: [{
-        product: 0,
-        quantaty: 0
-      }]
+      inputs: []
     };
   },
   methods: {
@@ -2529,12 +2525,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
       return client.name;
     },
+    //cria novo input
     addInput: function addInput() {
+      //get last input
+      var index = this.inputs.length - 1;
+      var lastInput = this.inputs[index];
       this.inputs.push({
         product: 0,
-        quantaty: 0
+        quantaty: 0,
+        listProducts: this.filterProducts(lastInput.listProducts)
       });
     },
+    //returns total price of all products
     calculateTotalPrice: function calculateTotalPrice() {
       var _this7 = this;
 
@@ -2547,9 +2549,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this7.totalPrice += product.price * item.quantaty;
       });
     },
+    //removing created input
     removeInput: function removeInput(item) {
       this.inputs.splice(item, 1);
       this.calculateTotalPrice();
+    },
+    //returns not selected products
+    filterProducts: function filterProducts(listProducts) {
+      var newListProducts = _.cloneDeep(listProducts);
+
+      this.inputs.map(function (item) {
+        var filtered = newListProducts.find(function (obj) {
+          return obj.id === item.product;
+        });
+
+        if (typeof filtered === 'undefined') {
+          return newListProducts;
+        }
+
+        newListProducts.splice(filtered, 1);
+      });
+      return newListProducts;
     }
   },
   mounted: function mounted() {
@@ -2559,6 +2579,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     Promise.all([this.loadClients(), this.loadProduts(), this.loadOrders()]).then(function (response) {
       _this8.clients = response[0];
       _this8.products = response[1];
+
+      _this8.inputs.push({
+        product: 0,
+        quantaty: 0,
+        listProducts: _.cloneDeep(_this8.products)
+      });
+
       _this8.orders = response[2];
       _this8.loading = false;
     })["catch"](function (error) {
@@ -40526,7 +40553,7 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _vm._l(_vm.products, function(product) {
+                                  _vm._l(input.listProducts, function(product) {
                                     return _c(
                                       "option",
                                       { domProps: { value: product.id } },
@@ -40808,14 +40835,6 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.totalPrice(order.id)))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.formatDateTime(order.created_at)
-                                      )
-                                    )
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [

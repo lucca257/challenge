@@ -41,7 +41,7 @@
                                         <option value="0" disabled>
                                             Selectione seu produto
                                         </option>
-                                        <option v-for="product in products"
+                                        <option v-for="product in input.listProducts"
                                                 v-bind:value="product.id">
                                             {{product.name}}
                                         </option>
@@ -113,7 +113,6 @@
                                     <td>{{ getClient(order.client_id)}}</td>
                                     <td>{{ getStatus(order.status) }}</td>
                                     <td>{{ totalPrice(order.id)}}</td>
-                                    <td>{{ formatDateTime(order.created_at) }}</td>
                                     <td>
                                         <a href="#" class="icon">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
@@ -154,10 +153,7 @@ export default {
             totalPrice: 0,
             editId: null,
             editData: {},
-            inputs: [{
-                product: 0,
-                quantaty: 0
-            }]
+            inputs: [],
         }
     },
     methods: {
@@ -216,12 +212,18 @@ export default {
             const client = this.clients.find(obj => obj.id === client_id)
             return client.name
         },
+        //cria novo input
         addInput(){
+            //get last input
+            const index = this.inputs.length - 1
+            const lastInput = this.inputs[index]
             this.inputs.push({
                 product: 0,
-                quantaty: 0
+                quantaty: 0,
+                listProducts: this.filterProducts(lastInput.listProducts)
             })
         },
+        //returns total price of all products
         calculateTotalPrice() {
             this.totalPrice = 0
             const selectedProducts = this.inputs.map((item) => {
@@ -229,10 +231,23 @@ export default {
                 this.totalPrice += product.price * item.quantaty
             })
         },
+        //removing created input
         removeInput(item){
             this.inputs.splice(item, 1)
             this.calculateTotalPrice()
         },
+        //returns not selected products
+        filterProducts(listProducts){
+            const newListProducts = _.cloneDeep(listProducts)
+            this.inputs.map(item => {
+                let filtered = newListProducts.find(obj => obj.id === item.product)
+                if(typeof filtered ==='undefined'){
+                    return newListProducts
+                }
+                newListProducts.splice(filtered, 1)
+            })
+            return newListProducts
+        }
     },
     mounted() {
         //waiting all promisses finish load
@@ -243,12 +258,17 @@ export default {
         ]).then(response => {
             this.clients = response[0]
             this.products = response[1]
+            this.inputs.push({
+                product: 0,
+                quantaty: 0,
+                listProducts: _.cloneDeep(this.products)
+            })
             this.orders = response[2]
-            this.loading = false;
+            this.loading = false
         }).catch(error => {
             console.log(error)
             alert("ops, ocorreu um erro. Tente novamente mais tarde!")
-        });
+        })
     },
 }
 </script>
