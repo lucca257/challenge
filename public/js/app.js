@@ -2534,6 +2534,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return;
       }
 
+      if (lastInput.product === 0) {
+        alert('selecione um produto');
+        return;
+      }
+
       this.inputs.push({
         product: 0,
         quantaty: 0,
@@ -2545,7 +2550,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this7 = this;
 
       this.totalPrice = 0;
-      var selectedProducts = this.inputs.map(function (item) {
+      this.inputs.map(function (item) {
         var product = _this7.products.find(function (obj) {
           return item.product === obj.id;
         });
@@ -2555,6 +2560,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //removing created input
     removeInput: function removeInput(item) {
+      var product = this.products.find(function (obj) {
+        return obj.id === item.product;
+      });
       this.inputs.splice(item, 1);
       this.calculateTotalPrice();
     },
@@ -40655,7 +40663,11 @@ var render = function() {
                                 {
                                   staticClass: "btn btn-secondary btn-block",
                                   attrs: { type: "submit" },
-                                  on: { click: _vm.removeInput }
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.removeInput(input)
+                                    }
+                                  }
                                 },
                                 [_vm._v("Remover produto - ")]
                               )

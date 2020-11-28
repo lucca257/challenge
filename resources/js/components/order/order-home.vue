@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <button type="submit" class="btn btn-secondary btn-block" @click="removeInput">Remover produto - </button>
+                                    <button type="submit" class="btn btn-secondary btn-block" @click="removeInput(input)">Remover produto - </button>
                                 </div>
                             </div>
                             <div class="col-md-10">
@@ -220,6 +220,10 @@ export default {
             if(lastInput.listProducts.length === 1) {
                 return;
             }
+            if(lastInput.product === 0) {
+                alert('selecione um produto')
+                return;
+            }
             this.inputs.push({
                 product: 0,
                 quantaty: 0,
@@ -229,15 +233,17 @@ export default {
         //returns total price of all products
         calculateTotalPrice() {
             this.totalPrice = 0
-            const selectedProducts = this.inputs.map((item) => {
-                let product = this.products.find(obj => item.product === obj.id)
+            this.inputs.map((item) => {
+                const product = this.products.find(obj => item.product === obj.id)
                 this.totalPrice += product.price * item.quantaty
             })
         },
         //removing created input
         removeInput(item){
+            const product = this.products.find(obj => obj.id === item.product)
             this.inputs.splice(item, 1)
             this.calculateTotalPrice()
+
         },
         //returns not selected products
         filterProducts(listProducts){
