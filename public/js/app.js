@@ -2375,8 +2375,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     loadOrders: function loadOrders() {
-      var _this = this;
-
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -2384,7 +2382,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return axios.get(_this.baseUrl);
+                return axios.get('api/products');
 
               case 2:
                 response = _context3.sent;
@@ -2399,7 +2397,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     onDelete: function onDelete(id) {
-      var _this2 = this;
+      var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -2407,8 +2405,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return axios["delete"](_this2.baseUrl + id).then(function (response) {
-                  _this2.loadClients();
+                return axios["delete"](_this.baseUrl + id).then(function (response) {
+                  _this.loadClients();
 
                   alert("cliente deletado");
                 })["catch"](function (error) {
@@ -2424,15 +2422,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     onEdit: function onEdit(client) {
-      var _this3 = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _this3.editId = client.id;
-                _this3.editClientData = client;
+                _this2.editId = client.id;
+                _this2.editClientData = client;
 
               case 2:
               case "end":
@@ -2443,7 +2441,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     onEditSubmit: function onEditSubmit() {
-      var _this4 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
@@ -2451,10 +2449,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return axios.patch(_this4.baseUrl + _this4.editId, _this4.editClientData).then(function (response) {
-                  _this4.onEditCancel();
+                return axios.patch(_this3.baseUrl + _this3.editId, _this3.editClientData).then(function (response) {
+                  _this3.onEditCancel();
 
-                  _this4.loadClients();
+                  _this3.loadClients();
                 })["catch"](function (error) {
                   console.log(error.response.data);
                 });
@@ -2468,15 +2466,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     onEditCancel: function onEditCancel() {
-      var _this5 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                _this5.editId = null;
-                _this5.editClientData = null;
+                _this4.editId = null;
+                _this4.editClientData = null;
 
               case 2:
               case "end":
@@ -2487,7 +2485,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     submit: function submit() {
-      var _this6 = this;
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
@@ -2495,10 +2493,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context8.prev = _context8.next) {
               case 0:
                 _context8.next = 2;
-                return axios.post(_this6.baseUrl, _this6.fields).then(function (response) {
-                  _this6.loadClients();
+                return axios.post(_this5.baseUrl, _this5.fields).then(function (response) {
+                  _this5.loadClients();
                 })["catch"](function (error) {
-                  alert(error.response.data);
+                  console.log(error.response.data);
                 });
 
               case 2:
@@ -2547,24 +2545,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //returns total price of all products
     calculateTotalPrice: function calculateTotalPrice() {
-      var _this7 = this;
+      var _this6 = this;
 
       this.totalPrice = 0;
       this.inputs.map(function (item) {
-        var product = _this7.products.find(function (obj) {
+        var product = _this6.products.find(function (obj) {
           return item.product === obj.id;
         });
 
-        _this7.totalPrice += product.price * item.quantaty;
+        _this6.totalPrice += product.price * item.quantaty;
       });
     },
     //removing created input
     removeInput: function removeInput(item) {
-      var product = this.products.find(function (obj) {
-        return obj.id === item.product;
+      this.inputs = this.inputs.filter(function (input) {
+        return input !== item;
       });
-      this.inputs.splice(item, 1);
-      this.calculateTotalPrice();
     },
     //returns not selected products
     filterProducts: function filterProducts(listProducts) {
@@ -2585,21 +2581,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    var _this8 = this;
+    var _this7 = this;
 
     //waiting all promisses finish load
-    Promise.all([this.loadClients(), this.loadProduts(), this.loadOrders()]).then(function (response) {
-      _this8.clients = response[0];
-      _this8.products = response[1];
+    Promise.all([this.loadClients(), this.loadProduts() //this.loadOrders()
+    ]).then(function (response) {
+      _this7.clients = response[0];
+      _this7.products = response[1];
 
-      _this8.inputs.push({
+      _this7.inputs.push({
         product: 0,
         quantaty: 0,
-        listProducts: _.cloneDeep(_this8.products)
-      });
+        listProducts: _.cloneDeep(_this7.products)
+      }); //this.orders = response[2]
 
-      _this8.orders = response[2];
-      _this8.loading = false;
+
+      _this7.loading = false;
     })["catch"](function (error) {
       console.log(error);
       alert("ops, ocorreu um erro. Tente novamente mais tarde!");

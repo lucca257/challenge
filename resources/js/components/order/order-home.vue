@@ -166,7 +166,7 @@ export default {
             return response.data.data;
         },
         async loadOrders() {
-            const response = await axios.get(this.baseUrl);
+            const response = await axios.get('api/products');
             return response.data.data;
         },
         async onDelete(id) {
@@ -197,7 +197,7 @@ export default {
             await axios.post(this.baseUrl, this.fields).then(response => {
                 this.loadClients()
             }).catch(error => {
-                alert(error.response.data)
+                console.log(error.response.data)
             })
         },
         formatDateTime(date){
@@ -240,10 +240,7 @@ export default {
         },
         //removing created input
         removeInput(item){
-            const product = this.products.find(obj => obj.id === item.product)
-            this.inputs.splice(item, 1)
-            this.calculateTotalPrice()
-
+            this.inputs = this.inputs.filter(input => input !== item)
         },
         //returns not selected products
         filterProducts(listProducts){
@@ -263,7 +260,7 @@ export default {
         Promise.all([
             this.loadClients(),
             this.loadProduts(),
-            this.loadOrders()
+            //this.loadOrders()
         ]).then(response => {
             this.clients = response[0]
             this.products = response[1]
@@ -272,7 +269,7 @@ export default {
                 quantaty: 0,
                 listProducts: _.cloneDeep(this.products)
             })
-            this.orders = response[2]
+           //this.orders = response[2]
             this.loading = false
         }).catch(error => {
             console.log(error)
