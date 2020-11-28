@@ -2561,6 +2561,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.inputs = this.inputs.filter(function (input) {
         return input !== item;
       });
+      this.calculateTotalPrice();
     },
     //returns not selected products
     filterProducts: function filterProducts(listProducts) {

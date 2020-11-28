@@ -241,6 +241,7 @@ export default {
         //removing created input
         removeInput(item){
             this.inputs = this.inputs.filter(input => input !== item)
+            this.calculateTotalPrice()
         },
         //returns not selected products
         filterProducts(listProducts){
