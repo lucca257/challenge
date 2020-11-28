@@ -2528,8 +2528,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //cria novo input
     addInput: function addInput() {
       //get last input
-      var index = this.inputs.length - 1;
-      var lastInput = this.inputs[index];
+      var lastInput = this.inputs[this.inputs.length - 1]; //prevent create new coponent
+
+      if (lastInput.listProducts.length === 1) {
+        return;
+      }
+
       this.inputs.push({
         product: 0,
         quantaty: 0,

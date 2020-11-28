@@ -215,8 +215,11 @@ export default {
         //cria novo input
         addInput(){
             //get last input
-            const index = this.inputs.length - 1
-            const lastInput = this.inputs[index]
+            const lastInput = this.inputs[this.inputs.length - 1]
+            //prevent create new coponent
+            if(lastInput.listProducts.length === 1) {
+                return;
+            }
             this.inputs.push({
                 product: 0,
                 quantaty: 0,
