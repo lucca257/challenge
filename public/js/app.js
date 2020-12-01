@@ -2558,6 +2558,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //removing created input
     removeInput: function removeInput(item) {
+      if (this.inputs.length === 1) {
+        return;
+      }
+
       this.inputs = this.inputs.filter(function (input) {
         return input !== item;
       });

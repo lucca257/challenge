@@ -240,6 +240,9 @@ export default {
         },
         //removing created input
         removeInput(item){
+            if(this.inputs.length === 1){
+                return;
+            }
             this.inputs = this.inputs.filter(input => input !== item)
             this.calculateTotalPrice()
         },
