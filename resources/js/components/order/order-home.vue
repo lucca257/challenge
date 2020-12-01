@@ -240,11 +240,20 @@ export default {
         },
         //removing created input
         removeInput(item){
-            if(this.inputs.length === 1){
+            //get last input
+            const lastInput = this.inputs[this.inputs.length - 1]
+            //prevent create new coponent
+            if(lastInput.listProducts.length === 1) {
                 return;
             }
+
             this.inputs = this.inputs.filter(input => input !== item)
             this.calculateTotalPrice()
+
+            if(item.product !== 0){
+                const selectedProduct = this.products.find(product => product.id === item.product)
+                lastInput.listProducts.push(selectedProduct)
+            }
         },
         //returns not selected products
         filterProducts(listProducts){
