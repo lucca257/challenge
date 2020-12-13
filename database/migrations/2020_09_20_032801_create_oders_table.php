@@ -17,6 +17,7 @@ class CreateOdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('client_id');
             $table->enum('status', ['pending','paid','canceled']);
+            $table->float('total_price')->default(0);
             $table->timestamps();
             $table->foreign('client_id')->references('id')->on('clients');
             $table->softDeletes();
