@@ -2303,7 +2303,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -2389,7 +2388,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return axios.get('api/products');
+                return axios.get('api/orders');
 
               case 2:
                 _yield$axios$get3 = _context3.sent;
@@ -2627,8 +2626,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this7 = this;
 
     //waiting all promisses finish load
-    Promise.all([this.loadClients(), this.loadProduts() //this.loadOrders()
-    ]).then(function (response) {
+    Promise.all([this.loadClients(), this.loadProduts(), this.loadOrders()]).then(function (response) {
       _this7.clients = response[0];
       _this7.products = response[1];
 
@@ -2636,9 +2634,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         product: 0,
         quantaty: 0,
         listProducts: _.cloneDeep(_this7.products)
-      }); //this.orders = response[2]
+      });
 
-
+      _this7.orders = response[2];
       _this7.loading = false;
     })["catch"](function (error) {
       console.log(error);
@@ -40962,9 +40960,7 @@ var render = function() {
                                     _vm._v(_vm._s(_vm.getStatus(order.status)))
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(_vm.totalPrice(order.id)))
-                                  ]),
+                                  _c("td", [_vm._v("123")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._m(3, true),
@@ -41064,8 +41060,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Status")]),
         _vm._v(" "),
         _c("th", [_vm._v("Preço total")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Data")]),
         _vm._v(" "),
         _c("th", [_vm._v("#")])
       ])

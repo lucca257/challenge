@@ -87,7 +87,6 @@
                                 <th>Cliente</th>
                                 <th>Status</th>
                                 <th>Preço total</th>
-                                <th>Data</th>
                                 <th>#</th>
                             </tr>
                             </thead>
@@ -112,7 +111,7 @@
                                     <td>{{ order.id }}</td>
                                     <td>{{ getClient(order.client_id)}}</td>
                                     <td>{{ getStatus(order.status) }}</td>
-                                    <td>{{ totalPrice(order.id)}}</td>
+                                    <td>123</td>
                                     <td>
                                         <a href="#" class="icon">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
@@ -168,7 +167,7 @@ export default {
             return data.data;
         },
         async loadOrders() {
-            const {data} = await axios.get('api/products');
+            const {data} = await axios.get('api/orders');
             return data.data;
         },
         async onDelete(id) {
@@ -287,7 +286,7 @@ export default {
         Promise.all([
             this.loadClients(),
             this.loadProduts(),
-            //this.loadOrders()
+            this.loadOrders()
         ]).then(response => {
             this.clients = response[0]
             this.products = response[1]
@@ -296,7 +295,7 @@ export default {
                 quantaty: 0,
                 listProducts: _.cloneDeep(this.products)
             })
-           //this.orders = response[2]
+            this.orders = response[2]
             this.loading = false
         }).catch(error => {
             console.log(error)
