@@ -53,14 +53,11 @@
                                 <div class="form-group col-md-3">
                                     <label for="quantity_id">quantidade &nbsp;</label>
                                     <select name="quantity" id="quantity_id" class="form-control ml-sm-4 mr-sm-4 my-2" v-model="input.quantaty" v-on:change="calculateTotalPrice">
-                                        <option value="0" disabled>
+                                        <option v-if="input.product === 0" value="0">
                                             0
                                         </option>
-                                        <option value="1">
-                                            1
-                                        </option>
-                                        <option value="2" >
-                                            2
+                                        <option v-else v-for="amount in searchAmountProduct(input.product)" v-bind:value="amount">
+                                            {{amount}}
                                         </option>
                                     </select>
                                 </div>
@@ -270,6 +267,14 @@ export default {
                 newListProducts.splice(filtered, 1)
             })
             return newListProducts
+        },
+        searchAmountProduct(product_id){
+            const {amount} = this.products.find(product => product.id === product_id)
+            const amountList = []
+            for(let i = amount; i >= 0; i--){
+                amountList.push(i)
+            }
+            return amountList
         }
     },
     mounted() {

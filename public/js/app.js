@@ -2303,9 +2303,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -2598,6 +2595,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         newListProducts.splice(filtered, 1);
       });
       return newListProducts;
+    },
+    searchAmountProduct: function searchAmountProduct(product_id) {
+      var _this$products$find = this.products.find(function (product) {
+        return product.id === product_id;
+      }),
+          amount = _this$products$find.amount;
+
+      var amountList = [];
+
+      for (var i = amount; i >= 0; i--) {
+        amountList.push(i);
+      }
+
+      return amountList;
     }
   },
   mounted: function mounted() {
@@ -40692,28 +40703,30 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "0", disabled: "" } },
-                                    [
-                                      _vm._v(
-                                        "\n                                        0\n                                    "
+                                  input.product === 0
+                                    ? _c("option", { attrs: { value: "0" } }, [
+                                        _vm._v(
+                                          "\n                                        0\n                                    "
+                                        )
+                                      ])
+                                    : _vm._l(
+                                        _vm.searchAmountProduct(input.product),
+                                        function(amount) {
+                                          return _c(
+                                            "option",
+                                            { domProps: { value: amount } },
+                                            [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(amount) +
+                                                  "\n                                    "
+                                              )
+                                            ]
+                                          )
+                                        }
                                       )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "1" } }, [
-                                    _vm._v(
-                                      "\n                                        1\n                                    "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "2" } }, [
-                                    _vm._v(
-                                      "\n                                        2\n                                    "
-                                    )
-                                  ])
-                                ]
+                                ],
+                                2
                               )
                             ]),
                             _vm._v(" "),
