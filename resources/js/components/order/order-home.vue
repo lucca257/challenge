@@ -15,8 +15,11 @@
                             <div class="row form-inline">
                                 <div class="form-group col-md-4">
                                     <label for="client_id">cliente &nbsp;</label>
-                                    <select name="client_id" id="client_id" class="form-control ml-sm-2 mr-sm-4 my-2">
-                                        <option v-for="client in clients">
+                                    <select name="client_id" id="client_id" class="form-control ml-sm-2 mr-sm-4 my-2" v-model="client_id">
+                                        <option value="0" disabled>
+                                            Selectione um cliente
+                                        </option>
+                                        <option v-for="client in clients" v-bind:value="client.id">
                                             {{client.name}}
                                         </option>
                                     </select>
@@ -41,8 +44,7 @@
                                         <option value="0" disabled>
                                             Selectione seu produto
                                         </option>
-                                        <option v-for="product in input.listProducts"
-                                                v-bind:value="product.id">
+                                        <option v-for="product in input.listProducts" v-bind:value="product.id">
                                             {{product.name}}
                                         </option>
                                     </select>
@@ -154,6 +156,7 @@ export default {
             editId: null,
             editData: {},
             inputs: [],
+            client_id: 0
         }
     },
     methods: {
@@ -194,15 +197,16 @@ export default {
             this.editClientData = null
         },
         async submit() {
-            await axios.post(this.baseUrl, this.fields).then(response => {
+            const order = {
+                client_id: this.client_id,
+                status: this.status,
+                products: this.inputs
+            }
+            await axios.post(this.baseUrl, order).then(response => {
                 this.loadClients()
             }).catch(error => {
                 console.log(error.response.data)
             })
-        },
-        formatDateTime(date){
-            const newDate = date.split("T")
-            return newDate[0]
         },
         getStatus(status) {
             const stats = this.status.find(obj => obj.type === status)
