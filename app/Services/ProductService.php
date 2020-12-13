@@ -16,11 +16,26 @@ class ProductService extends BaseService
     /**
      * calculate the total price of product
      * @param int $productId
-     * @param int $totalItens
+     * @param int $totalItems
      * @return float|int
      */
-    public function calculateTotalPrice(int $productId, int $totalItens){
-        $product = $this->productRepository->find($productId);
-        return $totalItens * $product->price;
+    public function calculateTotalPrice(int $productId, int $totalItems): float
+    {
+        $product = parent::find($productId);
+        return $totalItems * $product->price;
+    }
+
+    /**
+     * @param int $product_id
+     * @param float $quantity
+     * @return bool
+     */
+    public function updateQuantify(int $product_id, float $quantity): bool
+    {
+        $product = parent::find($product_id);
+        $new_quantity = $product->amount - $quantity;
+        return parent::update($product_id, [
+            'amount' => $new_quantity
+        ]);
     }
 }

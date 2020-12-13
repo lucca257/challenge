@@ -52,6 +52,7 @@ class OrderItemService extends BaseService
                 "price" => $price
             ]);
             $totalPrice += $price;
+            $this->productService->updateQuantify($item["product"], $item["quantaty"]);
         }
         $this->orderService->update($order_id,[
             'total_price' => $totalPrice
