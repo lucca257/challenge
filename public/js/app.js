@@ -2332,7 +2332,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     loadClients: function loadClients() {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+        var _yield$axios$get, data;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2341,10 +2342,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.get('api/clients');
 
               case 2:
-                response = _context.sent;
-                return _context.abrupt("return", response.data.data);
+                _yield$axios$get = _context.sent;
+                data = _yield$axios$get.data;
+                return _context.abrupt("return", data.data);
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -2354,7 +2356,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     loadProduts: function loadProduts() {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var response;
+        var _yield$axios$get2, data;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -2363,10 +2366,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.get('api/products');
 
               case 2:
-                response = _context2.sent;
-                return _context2.abrupt("return", response.data.data);
+                _yield$axios$get2 = _context2.sent;
+                data = _yield$axios$get2.data;
+                return _context2.abrupt("return", data.data);
 
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -2376,7 +2380,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     loadOrders: function loadOrders() {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var response;
+        var _yield$axios$get3, data;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -2385,10 +2390,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.get('api/products');
 
               case 2:
-                response = _context3.sent;
-                return _context3.abrupt("return", response.data.data);
+                _yield$axios$get3 = _context3.sent;
+                data = _yield$axios$get3.data;
+                return _context3.abrupt("return", data.data);
 
-              case 4:
+              case 5:
               case "end":
                 return _context3.stop();
             }

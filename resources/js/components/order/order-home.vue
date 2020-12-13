@@ -158,16 +158,16 @@ export default {
     },
     methods: {
         async loadClients() {
-            const response = await axios.get('api/clients');
-            return response.data.data;
+            const {data} = await axios.get('api/clients');
+            return data.data;
         },
         async loadProduts() {
-            const response = await axios.get('api/products');
-            return response.data.data;
+            const {data} = await axios.get('api/products');
+            return data.data;
         },
         async loadOrders() {
-            const response = await axios.get('api/products');
-            return response.data.data;
+            const {data} = await axios.get('api/products');
+            return data.data;
         },
         async onDelete(id) {
             await axios.delete(this.baseUrl + id).then(response => {
