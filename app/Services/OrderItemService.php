@@ -49,6 +49,26 @@ class OrderItemService extends BaseService
     }
 
     /**
+     * @param array $products
+     * @param int $order_id
+     * @return array
+     */
+    public function processProductItems(array $products, int $order_id): array
+    {
+        $save = [];
+        foreach ($products as $item){
+            $product = $this->validateProductExists($item["product"]);
+            if (!$product) continue;
+            $save[] = $this->save([
+                "product_id" => $item["product"],
+                "quantity" => $item["quantaty"],
+                "order_id" => $order_id
+            ]);
+        }
+        return $save;
+    }
+
+    /**
      * calculate the total price of product
      * @param int $productId
      * @param int $totalItens

@@ -62,20 +62,7 @@ class OrderController extends BaseController
                 "status" => $status
             ]);
 
-            $save = [];
-            foreach ($products as $item){
-                $save[] = [
-                    "product_id" => $item["product"],
-                    "quantity" => $item["quantaty"],
-                ];
-                $product = $this->productService->find($item["product"]);
-                if (!$product) continue;
-                $save[] = $this->orderItemService->save([
-                    "product_id" => $item["product"],
-                    "quantity" => $item["quantaty"],
-                    "order_id" => $order->id
-                ]);
-            }
+            $save = $this->orderItemService->processProductItems($products, $order->id);
             $response = ["order" => $order, "item" => $save];
             if(empty($save)){
                 DB::rollBack();
