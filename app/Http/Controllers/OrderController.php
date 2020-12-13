@@ -53,20 +53,26 @@ class OrderController extends BaseController
     {
         try {
             DB::beginTransaction();
-            $order_request = $request->get('order');
-            $item_request = $request->get('item');
+            $products = $request->get('products');
+            $status = $request->get('status');
+            $client_id = $request->get('client_id');
+
             $order = $this->orderService->save([
-                "client_id" => $order_request["client_id"],
-                "status" => $order_request["status"]
+                "client_id" => $client_id,
+                "status" => $status
             ]);
 
             $save = [];
-            foreach ($item_request as $item){
-                $product = $this->productService->find($item["product_id"]);
+            foreach ($products as $item){
+                $save[] = [
+                    "product_id" => $item["product"],
+                    "quantity" => $item["quantaty"],
+                ];
+                $product = $this->productService->find($item["product"]);
                 if (!$product) continue;
                 $save[] = $this->orderItemService->save([
-                    "product_id" => $item["product_id"],
-                    "quantity" => $item["product_id"],
+                    "product_id" => $item["product"],
+                    "quantity" => $item["quantaty"],
                     "order_id" => $order->id
                 ]);
             }
