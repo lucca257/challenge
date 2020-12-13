@@ -2561,6 +2561,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return item.product === obj.id;
         });
 
+        if (item.quantaty > product.amount) {
+          item.quantaty = product.amount;
+        }
+
         _this6.totalPrice += product.price * item.quantaty;
       });
     },

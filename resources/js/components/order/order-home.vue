@@ -236,6 +236,9 @@ export default {
             this.totalPrice = 0
             this.inputs.map((item) => {
                 const product = this.products.find(obj => item.product === obj.id)
+                if(item.quantaty > product.amount){
+                    item.quantaty = product.amount
+                }
                 this.totalPrice += product.price * item.quantaty
             })
         },
