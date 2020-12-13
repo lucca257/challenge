@@ -2303,6 +2303,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -2326,7 +2327,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       editId: null,
       editData: {},
       inputs: [],
-      client_id: 0
+      client_id: 0,
+      client_status: "pending"
     };
   },
   methods: {
@@ -2501,7 +2503,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 order = {
                   client_id: _this5.client_id,
-                  status: _this5.status,
+                  status: _this5.client_status,
                   products: _this5.inputs
                 };
                 _context8.next = 3;
@@ -40557,11 +40559,39 @@ var render = function() {
                           _c(
                             "select",
                             {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.client_status,
+                                  expression: "client_status"
+                                }
+                              ],
                               staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                              attrs: { name: "status", id: "status_id" }
+                              attrs: { name: "status", id: "status_id" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.client_status = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
                             },
                             _vm._l(_vm.status, function(st) {
-                              return _c("option", [_vm._v(_vm._s(st.alias))])
+                              return _c(
+                                "option",
+                                { domProps: { value: st.type } },
+                                [_vm._v(_vm._s(st.alias))]
+                              )
                             }),
                             0
                           )

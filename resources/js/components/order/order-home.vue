@@ -26,8 +26,9 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="status_id">status &nbsp;</label>
-                                    <select name="status" id="status_id" class="form-control ml-sm-2 mr-sm-4 my-2">
-                                        <option v-for="st in status">{{st.alias}}</option>
+
+                                    <select name="status" id="status_id" class="form-control ml-sm-2 mr-sm-4 my-2" v-model="client_status">
+                                        <option v-for="st in status" v-bind:value="st.type">{{st.alias}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
@@ -153,7 +154,8 @@ export default {
             editId: null,
             editData: {},
             inputs: [],
-            client_id: 0
+            client_id: 0,
+            client_status: "pending",
         }
     },
     methods: {
@@ -196,7 +198,7 @@ export default {
         async submit() {
             const order = {
                 client_id: this.client_id,
-                status: this.status,
+                status: this.client_status,
                 products: this.inputs
             }
             await axios.post(this.baseUrl, order).then(response => {
