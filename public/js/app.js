@@ -2507,7 +2507,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context8.next = 3;
                 return axios.post(_this5.baseUrl, order).then(function (response) {
-                  _this5.loadClients();
+                  _this5.loading = true;
+                  _this5.client_id = 0;
+                  _this5.inputs = [];
+                  _this5.totalPrice = 0;
+                  Promise.all([_this5.loadClients(), _this5.loadProduts(), _this5.loadOrders()]).then(function (response) {
+                    _this5.clients = response[0];
+                    _this5.products = response[1];
+
+                    _this5.inputs.push({
+                      product: 0,
+                      quantaty: 0,
+                      listProducts: _.cloneDeep(_this5.products)
+                    });
+
+                    _this5.orders = response[2];
+                    _this5.loading = false;
+                  })["catch"](function (error) {
+                    console.log(error);
+                    alert("ops, ocorreu um erro. Tente novamente mais tarde!");
+                  });
                 })["catch"](function (error) {
                   console.log(error.response.data);
                 });

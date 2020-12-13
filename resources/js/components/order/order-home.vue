@@ -201,7 +201,29 @@ export default {
                 products: this.inputs
             }
             await axios.post(this.baseUrl, order).then(response => {
-                this.loadClients()
+                this.loading = true
+                this.client_id = 0
+                this.inputs = []
+                this.totalPrice = 0
+
+                Promise.all([
+                    this.loadClients(),
+                    this.loadProduts(),
+                    this.loadOrders()
+                ]).then(response => {
+                    this.clients = response[0]
+                    this.products = response[1]
+                    this.inputs.push({
+                        product: 0,
+                        quantaty: 0,
+                        listProducts: _.cloneDeep(this.products)
+                    })
+                    this.orders = response[2]
+                    this.loading = false
+                }).catch(error => {
+                    console.log(error)
+                    alert("ops, ocorreu um erro. Tente novamente mais tarde!")
+                })
             }).catch(error => {
                 console.log(error.response.data)
             })
