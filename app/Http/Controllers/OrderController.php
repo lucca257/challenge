@@ -62,9 +62,9 @@ class OrderController extends BaseController
                 "status" => $status
             ]);
 
-            $save = $this->orderItemService->processProductItems($products, $order->id);
-            $response = ["order" => $order, "item" => $save];
-            if(empty($save)){
+            $orderItems = $this->orderItemService->processProductItems($products, $order->id);
+            $response = ["order" => $order, "item" => $orderItems["items"], "total_price" => $orderItems['totalPrice']];
+            if(empty($orderItems)){
                 DB::rollBack();
                 return $this->responseApi([], 'nenhum item foi cadastrado', false, 500);
             }
@@ -72,7 +72,7 @@ class OrderController extends BaseController
             return $this->responseApi($response, 'Dados criados com sucesso');
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error($e->getMessage());
+            dd($e->getMessage());
             return $this->responseApi([], 'Falha interna ao criar dados', false, 500);
         }
     }

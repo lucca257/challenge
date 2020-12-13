@@ -17,26 +17,18 @@ class OrderItemService extends BaseService
      * @var ProductRepository
      */
     protected $productRepository;
+    protected $orderService;
 
     /**
      * OrderItemService constructor.
      * @param OrderItemRepository $orderItemRepository
      * @param ProductRepository $productRepository
      */
-    public function __construct(OrderItemRepository $orderItemRepository, ProductRepository $productRepository)
+    public function __construct(OrderItemRepository $orderItemRepository, ProductRepository $productRepository, OrderService $orderService)
     {
         parent::__construct($orderItemRepository);
         $this->productRepository = $productRepository;
-    }
-
-    /**
-     * @param array $attributes
-     * @return object
-     */
-    public function save(array $attributes): object
-    {
-        $attributes['price'] = $this->calculateTotalPrice($attributes["product_id"], $attributes["quantity"]);
-        return parent::save($attributes);
+        $this->orderService = $orderService;
     }
 
     /**
@@ -55,16 +47,24 @@ class OrderItemService extends BaseService
      */
     public function processProductItems(array $products, int $order_id): array
     {
+        $totalPrice = 0;
         $save = [];
         foreach ($products as $item){
             $product = $this->validateProductExists($item["product"]);
             if (!$product) continue;
-            $save[] = $this->save([
+            $price = $this->calculateTotalPrice($item["product"], $item["quantaty"]);
+            $save['items'] = parent::save([
                 "product_id" => $item["product"],
                 "quantity" => $item["quantaty"],
-                "order_id" => $order_id
+                "order_id" => $order_id,
+                "price" => $price
             ]);
+            $totalPrice += $price;
         }
+        $this->orderService->update($order_id,[
+            'total_price' => $totalPrice
+        ]);
+        $save['totalPrice'] = $totalPrice;
         return $save;
     }
 
