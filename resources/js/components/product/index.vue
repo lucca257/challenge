@@ -41,6 +41,7 @@
                         <tr>
                             <th>Nome do produto</th>
                             <th>Preço</th>
+                            <th>Quantidade</th>
                             <th>Descrição</th>
                             <th>Ações</th>
                         </tr>
@@ -50,6 +51,7 @@
                             <template v-if="editId == product.id">
                                 <td><input v-model="editProductData.name" type="text"></td>
                                 <td><input v-model="editProductData.price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100"  placeholder="0.00"></td>
+                                <td><input v-model="editProductData.amount" type="number" min="0"></td>
                                 <td><input v-model="editProductData.description" type="text"></td>
                                 <td>
                                     <span class="icon" @click="onEditSubmit()">
@@ -63,6 +65,7 @@
                             <template v-else>
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.price }}</td>
+                                <td>{{ product.amount }}</td>
                                 <td>{{ product.description }}</td>
                                 <td>
                                     <a href="#" class="icon">

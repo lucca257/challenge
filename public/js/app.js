@@ -2304,6 +2304,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -2326,7 +2328,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       totalPrice: 0,
       editId: null,
       editData: {},
-      inputs: []
+      inputs: [],
+      client_id: 0
     };
   },
   methods: {
@@ -2488,28 +2491,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+        var order;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
-                _context8.next = 2;
-                return axios.post(_this5.baseUrl, _this5.fields).then(function (response) {
+                order = {
+                  client_id: _this5.client_id,
+                  status: _this5.status,
+                  products: _this5.inputs
+                };
+                _context8.next = 3;
+                return axios.post(_this5.baseUrl, order).then(function (response) {
                   _this5.loadClients();
                 })["catch"](function (error) {
                   console.log(error.response.data);
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context8.stop();
             }
           }
         }, _callee8);
       }))();
-    },
-    formatDateTime: function formatDateTime(date) {
-      var newDate = date.split("T");
-      return newDate[0];
     },
     getStatus: function getStatus(status) {
       var stats = this.status.find(function (obj) {
@@ -2558,7 +2563,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //removing created input
     removeInput: function removeInput(item) {
-      if (this.inputs.length === 1) {
+      //get last input
+      var lastInput = this.inputs[this.inputs.length - 1]; //prevent create new coponent
+
+      if (lastInput.listProducts.length === 1) {
         return;
       }
 
@@ -2566,6 +2574,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return input !== item;
       });
       this.calculateTotalPrice();
+
+      if (item.product !== 0) {
+        var selectedProduct = this.products.find(function (product) {
+          return product.id === item.product;
+        });
+        lastInput.listProducts.push(selectedProduct);
+      }
     },
     //returns not selected products
     filterProducts: function filterProducts(listProducts) {
@@ -2639,6 +2654,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -40454,19 +40472,59 @@ var render = function() {
                           _c(
                             "select",
                             {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.client_id,
+                                  expression: "client_id"
+                                }
+                              ],
                               staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                              attrs: { name: "client_id", id: "client_id" }
+                              attrs: { name: "client_id", id: "client_id" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.client_id = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
                             },
-                            _vm._l(_vm.clients, function(client) {
-                              return _c("option", [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(client.name) +
-                                    "\n                                    "
+                            [
+                              _c(
+                                "option",
+                                { attrs: { value: "0", disabled: "" } },
+                                [
+                                  _vm._v(
+                                    "\n                                        Selectione um cliente\n                                    "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.clients, function(client) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: client.id } },
+                                  [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(client.name) +
+                                        "\n                                    "
+                                    )
+                                  ]
                                 )
-                              ])
-                            }),
-                            0
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -41242,6 +41300,35 @@ var render = function() {
                                       {
                                         name: "model",
                                         rawName: "v-model",
+                                        value: _vm.editProductData.amount,
+                                        expression: "editProductData.amount"
+                                      }
+                                    ],
+                                    attrs: { type: "number", min: "0" },
+                                    domProps: {
+                                      value: _vm.editProductData.amount
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.editProductData,
+                                          "amount",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
                                         value: _vm.editProductData.description,
                                         expression:
                                           "editProductData.description"
@@ -41298,6 +41385,8 @@ var render = function() {
                                 _c("td", [_vm._v(_vm._s(product.name))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(product.price))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(product.amount))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(product.description))]),
                                 _vm._v(" "),
@@ -41395,6 +41484,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Nome do produto")]),
         _vm._v(" "),
         _c("th", [_vm._v("Preço")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantidade")]),
         _vm._v(" "),
         _c("th", [_vm._v("Descrição")]),
         _vm._v(" "),
