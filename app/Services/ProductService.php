@@ -12,4 +12,15 @@ class ProductService extends BaseService
     {
         parent::__construct($productRepository);
     }
+
+    /**
+     * calculate the total price of product
+     * @param int $productId
+     * @param int $totalItens
+     * @return float|int
+     */
+    public function calculateTotalPrice(int $productId, int $totalItens){
+        $product = $this->productRepository->find($productId);
+        return $totalItens * $product->price;
+    }
 }

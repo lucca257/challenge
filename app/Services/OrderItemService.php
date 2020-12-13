@@ -16,28 +16,21 @@ class OrderItemService extends BaseService
     /**
      * @var ProductRepository
      */
-    protected $productRepository;
     protected $orderService;
+    protected $productService;
 
     /**
      * OrderItemService constructor.
      * @param OrderItemRepository $orderItemRepository
      * @param ProductRepository $productRepository
+     * @param OrderService $orderService
+     * @param ProductService $productService
      */
-    public function __construct(OrderItemRepository $orderItemRepository, ProductRepository $productRepository, OrderService $orderService)
+    public function __construct(OrderItemRepository $orderItemRepository, OrderService $orderService, ProductService $productService)
     {
         parent::__construct($orderItemRepository);
-        $this->productRepository = $productRepository;
         $this->orderService = $orderService;
-    }
-
-    /**
-     * @param $product_id
-     * @return mixed
-     */
-    public function validateProductExists($product_id)
-    {
-        return $this->productRepository->find($product_id);
+        $this->productService = $productService;
     }
 
     /**
@@ -50,9 +43,9 @@ class OrderItemService extends BaseService
         $totalPrice = 0;
         $save = [];
         foreach ($products as $item){
-            $product = $this->validateProductExists($item["product"]);
+            $product = $this->productService->find($item["product"]);
             if (!$product) continue;
-            $price = $this->calculateTotalPrice($item["product"], $item["quantaty"]);
+            $price = $this->productService->calculateTotalPrice($item["product"], $item["quantaty"]);
             $save['items'] = parent::save([
                 "product_id" => $item["product"],
                 "quantity" => $item["quantaty"],
@@ -66,16 +59,5 @@ class OrderItemService extends BaseService
         ]);
         $save['totalPrice'] = $totalPrice;
         return $save;
-    }
-
-    /**
-     * calculate the total price of product
-     * @param int $productId
-     * @param int $totalItens
-     * @return float|int
-     */
-    private function calculateTotalPrice(int $productId, int $totalItens){
-        $product = $this->productRepository->find($productId);
-        return $totalItens * $product->price;
     }
 }
