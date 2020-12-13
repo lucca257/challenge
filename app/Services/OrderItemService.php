@@ -22,7 +22,6 @@ class OrderItemService extends BaseService
     /**
      * OrderItemService constructor.
      * @param OrderItemRepository $orderItemRepository
-     * @param ProductRepository $productRepository
      * @param OrderService $orderService
      * @param ProductService $productService
      */
