@@ -40960,7 +40960,7 @@ var render = function() {
                                     _vm._v(_vm._s(_vm.getStatus(order.status)))
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v("123")]),
+                                  _c("td", [_vm._v(_vm._s(order.total_price))]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._m(3, true),

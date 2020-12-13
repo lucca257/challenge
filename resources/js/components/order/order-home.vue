@@ -111,7 +111,7 @@
                                     <td>{{ order.id }}</td>
                                     <td>{{ getClient(order.client_id)}}</td>
                                     <td>{{ getStatus(order.status) }}</td>
-                                    <td>123</td>
+                                    <td>{{order.total_price}}</td>
                                     <td>
                                         <a href="#" class="icon">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
