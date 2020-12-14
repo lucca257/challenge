@@ -2283,26 +2283,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
   data: function data() {
@@ -2428,7 +2408,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-    onEdit: function onEdit(client) {
+    onEditCancel: function onEditCancel() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
@@ -2436,8 +2416,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _this2.editId = client.id;
-                _this2.editClientData = client;
+                _this2.editId = null;
+                _this2.editClientData = null;
 
               case 2:
               case "end":
@@ -2447,82 +2427,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    onEditSubmit: function onEditSubmit() {
+    submit: function submit() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        var order;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _context6.next = 2;
-                return axios.patch(_this3.baseUrl + _this3.editId, _this3.editClientData).then(function (response) {
-                  _this3.onEditCancel();
-
-                  _this3.loadClients();
-                })["catch"](function (error) {
-                  console.log(error.response.data);
-                });
-
-              case 2:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6);
-      }))();
-    },
-    onEditCancel: function onEditCancel() {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                _this4.editId = null;
-                _this4.editClientData = null;
-
-              case 2:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7);
-      }))();
-    },
-    submit: function submit() {
-      var _this5 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
-        var order;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
                 order = {
-                  client_id: _this5.client_id,
-                  status: _this5.client_status,
-                  products: _this5.inputs
+                  client_id: _this3.client_id,
+                  status: _this3.client_status,
+                  products: _this3.inputs
                 };
-                _context8.next = 3;
-                return axios.post(_this5.baseUrl, order).then(function (response) {
-                  _this5.loading = true;
-                  _this5.client_id = 0;
-                  _this5.inputs = [];
-                  _this5.totalPrice = 0;
-                  Promise.all([_this5.loadClients(), _this5.loadProduts(), _this5.loadOrders()]).then(function (response) {
-                    _this5.clients = response[0];
-                    _this5.products = response[1];
+                _context6.next = 3;
+                return axios.post(_this3.baseUrl, order).then(function (response) {
+                  _this3.loading = true;
+                  _this3.client_id = 0;
+                  _this3.inputs = [];
+                  _this3.totalPrice = 0;
+                  Promise.all([_this3.loadClients(), _this3.loadProduts(), _this3.loadOrders()]).then(function (response) {
+                    _this3.clients = response[0];
+                    _this3.products = response[1];
 
-                    _this5.inputs.push({
+                    _this3.inputs.push({
                       product: 0,
                       quantaty: 0,
-                      listProducts: _.cloneDeep(_this5.products)
+                      listProducts: _.cloneDeep(_this3.products)
                     });
 
-                    _this5.orders = response[2];
-                    _this5.loading = false;
+                    _this3.orders = response[2];
+                    _this3.loading = false;
                   })["catch"](function (error) {
                     console.log(error);
                     alert("ops, ocorreu um erro. Tente novamente mais tarde!");
@@ -2533,10 +2469,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
               case "end":
-                return _context8.stop();
+                return _context6.stop();
             }
           }
-        }, _callee8);
+        }, _callee6);
       }))();
     },
     getStatus: function getStatus(status) {
@@ -2573,11 +2509,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //returns total price of all products
     calculateTotalPrice: function calculateTotalPrice() {
-      var _this6 = this;
+      var _this4 = this;
 
       this.totalPrice = 0;
       this.inputs.map(function (item) {
-        var product = _this6.products.find(function (obj) {
+        var product = _this4.products.find(function (obj) {
           return item.product === obj.id;
         });
 
@@ -2585,7 +2521,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           item.quantaty = product.amount;
         }
 
-        _this6.totalPrice += product.price * item.quantaty;
+        _this4.totalPrice += product.price * item.quantaty;
       });
     },
     //removing created input
@@ -2642,21 +2578,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    var _this7 = this;
+    var _this5 = this;
 
     //waiting all promisses finish load
     Promise.all([this.loadClients(), this.loadProduts(), this.loadOrders()]).then(function (response) {
-      _this7.clients = response[0];
-      _this7.products = response[1];
+      _this5.clients = response[0];
+      _this5.products = response[1];
 
-      _this7.inputs.push({
+      _this5.inputs.push({
         product: 0,
         quantaty: 0,
-        listProducts: _.cloneDeep(_this7.products)
+        listProducts: _.cloneDeep(_this5.products)
       });
 
-      _this7.orders = response[2];
-      _this7.loading = false;
+      _this5.orders = response[2];
+      _this5.loading = false;
     })["catch"](function (error) {
       console.log(error);
       alert("ops, ocorreu um erro. Tente novamente mais tarde!");
@@ -40843,189 +40779,39 @@ var render = function() {
                     _vm._v(" "),
                     _vm._l(_vm.orders, function(order) {
                       return _c("tbody", [
-                        _c(
-                          "tr",
-                          [
-                            _vm.editId == order.id
-                              ? [
-                                  _c("td", [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.editData.name,
-                                          expression: "editData.name"
-                                        }
-                                      ],
-                                      attrs: { type: "text" },
-                                      domProps: { value: _vm.editData.name },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            _vm.editData,
-                                            "name",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.editData.price,
-                                          expression: "editData.price"
-                                        }
-                                      ],
-                                      attrs: {
-                                        type: "number",
-                                        min: "0",
-                                        step: "0.01",
-                                        "data-number-to-fixed": "2",
-                                        "data-number-stepfactor": "100",
-                                        placeholder: "0.00"
-                                      },
-                                      domProps: { value: _vm.editData.price },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            _vm.editData,
-                                            "price",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.editData.description,
-                                          expression: "editData.description"
-                                        }
-                                      ],
-                                      attrs: { type: "text" },
-                                      domProps: {
-                                        value: _vm.editData.description
-                                      },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            _vm.editData,
-                                            "description",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c(
-                                      "span",
-                                      {
-                                        staticClass: "icon",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.onEditSubmit()
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fa fa-check" })]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      {
-                                        staticClass: "icon",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.onEditCancel()
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fa fa-ban" })]
-                                    )
-                                  ])
-                                ]
-                              : [
-                                  _c("td", [_vm._v(_vm._s(order.id))]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      _vm._s(_vm.getClient(order.client_id))
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(_vm._s(_vm.getStatus(order.status)))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(order.total_price))]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._m(3, true),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "icon",
-                                        attrs: { href: "#" }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fa fa-pencil",
-                                          attrs: { "aria-hidden": "true" },
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onEdit(order)
-                                            }
-                                          }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "icon",
-                                        attrs: { href: "#" }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fa fa-trash",
-                                          attrs: { "aria-hidden": "true" },
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onDelete(order.id)
-                                            }
-                                          }
-                                        })
-                                      ]
-                                    )
-                                  ])
-                                ]
-                          ],
-                          2
-                        )
+                        _c("tr", [
+                          _c("td", [_vm._v(_vm._s(order.id))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(_vm.getClient(order.client_id)))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(_vm.getStatus(order.status)))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(order.total_price))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._m(3, true),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              { staticClass: "icon", attrs: { href: "#" } },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-trash",
+                                  attrs: { "aria-hidden": "true" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.onDelete(order.id)
+                                    }
+                                  }
+                                })
+                              ]
+                            )
+                          ])
+                        ])
                       ])
                     })
                   ],

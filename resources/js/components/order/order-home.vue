@@ -92,38 +92,18 @@
                             </thead>
                             <tbody v-for="order in orders">
                             <tr>
-                                <template v-if="editId == order.id">
-                                    <td><input v-model="editData.name" type="text"></td>
-                                    <td><input v-model="editData.price" type="number" min="0" step="0.01"
-                                               data-number-to-fixed="2" data-number-stepfactor="100" placeholder="0.00">
-                                    </td>
-                                    <td><input v-model="editData.description" type="text"></td>
-                                    <td>
-                                    <span class="icon" @click="onEditSubmit()">
-                                      <i class="fa fa-check"></i>
-                                    </span>
-                                        <span class="icon" @click="onEditCancel()">
-                                      <i class="fa fa-ban"></i>
-                                    </span>
-                                    </td>
-                                </template>
-                                <template v-else>
-                                    <td>{{ order.id }}</td>
-                                    <td>{{ getClient(order.client_id)}}</td>
-                                    <td>{{ getStatus(order.status) }}</td>
-                                    <td>{{order.total_price}}</td>
-                                    <td>
-                                        <a href="#" class="icon">
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
-                                        </a>
-                                        <a href="#" class="icon">
-                                            <i class="fa fa-pencil" aria-hidden="true" @click="onEdit(order)"></i>
-                                        </a>
-                                        <a href="#" class="icon">
-                                            <i class="fa fa-trash" aria-hidden="true" @click="onDelete(order.id)"></i>
-                                        </a>
-                                    </td>
-                                </template>
+                                <td>{{ order.id }}</td>
+                                <td>{{ getClient(order.client_id)}}</td>
+                                <td>{{ getStatus(order.status) }}</td>
+                                <td>{{order.total_price}}</td>
+                                <td>
+                                    <a href="#" class="icon">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="icon">
+                                        <i class="fa fa-trash" aria-hidden="true" @click="onDelete(order.id)"></i>
+                                    </a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -174,18 +154,6 @@ export default {
             await axios.delete(this.baseUrl + id).then(response => {
                 this.loadClients()
                 alert("cliente deletado")
-            }).catch(error => {
-                console.log(error.response.data)
-            })
-        },
-        async onEdit(client) {
-            this.editId = client.id
-            this.editClientData = client
-        },
-        async onEditSubmit() {
-            await axios.patch(this.baseUrl + this.editId, this.editClientData).then(response => {
-                this.onEditCancel()
-                this.loadClients()
             }).catch(error => {
                 console.log(error.response.data)
             })
