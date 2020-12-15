@@ -1,5 +1,5 @@
 <template>
-    <div class="order-home">
+    <div class="order-home" v-if="!order_view">
         <div v-if="loading">
             <h3>Carregando...</h3>
         </div>
@@ -90,7 +90,7 @@
                                 <th>#</th>
                             </tr>
                             </thead>
-                            <tbody v-for="order in orders">
+                            <tbody v-for="order in orders" :key="order.id">
                             <tr>
                                 <td>{{ order.id }}</td>
                                 <td>{{ getClient(order.client_id)}}</td>
@@ -98,7 +98,7 @@
                                 <td>{{order.total_price}}</td>
                                 <td>
                                     <a href="#" class="icon">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                        <i class="fa fa-eye" aria-hidden="true" @click="onView(order)"></i>
                                     </a>
                                     <a href="#" class="icon">
                                         <i class="fa fa-trash" aria-hidden="true" @click="onDelete(order.id)"></i>
@@ -112,11 +112,20 @@
             </div>
         </div>
     </div>
+    <div v-else>
+        <order-details
+            :order="order_view"
+        />
+    </div>
 </template>
 
 <script>
+import OrderDetails from './order-details'
 export default {
     name: "order-home",
+    components: {
+        OrderDetails
+    },
     data() {
         return {
             loading: true,
@@ -135,6 +144,7 @@ export default {
             inputs: [],
             client_id: 0,
             client_status: "pending",
+            order_view: null,
         }
     },
     methods: {
@@ -157,6 +167,10 @@ export default {
             }).catch(error => {
                 console.log(error.response.data)
             })
+        },
+        async onView(order){
+            console.log(order)
+            this.order_view = order
         },
         async onEditCancel() {
             this.editId = null
@@ -269,7 +283,7 @@ export default {
                 amountList.push(i)
             }
             return amountList
-        }
+        },
     },
     mounted() {
         //waiting all promisses finish load
