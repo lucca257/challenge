@@ -16,7 +16,7 @@
               type="text"
               class="form-control ml-sm-2 mr-sm-4 my-2"
               placeholder="nome do cliente"
-              value="pedro teste"
+              :value="client_name"
               disabled
             />
           </div>
@@ -67,6 +67,15 @@ export default {
     order: {
       type: Object,
     },
+    products: {
+        type: Array
+    },
+    client_name: {
+        type: String
+    },
+    status: {
+        type: Array
+    }
   },
 };
 </script>

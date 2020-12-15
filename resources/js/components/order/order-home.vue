@@ -115,6 +115,9 @@
     <div v-else>
         <order-details
             :order="order_view"
+            :client_name="order_client_name"
+            :products="products"
+            :status="status"
         />
     </div>
 </template>
@@ -145,6 +148,7 @@ export default {
             client_id: 0,
             client_status: "pending",
             order_view: null,
+            order_client_name: null
         }
     },
     methods: {
@@ -170,6 +174,8 @@ export default {
         },
         async onView(order){
             console.log(order)
+            const {name} = this.clients.find(client => client.id === order.client_id)
+            this.order_client_name = name
             this.order_view = order
         },
         async onEditCancel() {
