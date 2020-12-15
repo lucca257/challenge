@@ -3,7 +3,7 @@
     <div class="card" style="margin-bottom: 25px">
       <h3>
         <i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;</i>Detalhes do
-        pedido {{ order.id }}
+        pedido #{{ order.id }}
       </h3>
       <div class="card-header">
         <button>Voltar</button>
