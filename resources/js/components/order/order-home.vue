@@ -116,8 +116,6 @@
         <order-details
             :order="order_view"
             :client_name="order_client_name"
-            :products="products"
-            :status="status"
         />
     </div>
 </template>
