@@ -2219,22 +2219,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-details",
   props: {
     order: {
       type: Object
     },
-    products: {
-      type: Array
-    },
     client_name: {
       type: String
+    }
+  },
+  methods: {
+    getStatus: function getStatus(status_id) {
+      return this.$parent.getStatus(status_id);
     },
-    status: {
-      type: Array
+    getProductName: function getProductName(product_id) {
+      var _this$$parent$product = this.$parent.products.find(function (product) {
+        return product.id === product_id;
+      }),
+          name = _this$$parent$product.name;
+
+      return name;
+    },
+    disableInputStatus: function disableInputStatus() {
+      if (status === 'pending' || status === 'canceled') return false;
+      return true;
     }
   }
 });
@@ -2259,8 +2268,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
 //
 //
 //
@@ -40638,9 +40645,33 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _vm._m(1),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v(_vm._s(_vm.getStatus(_vm.order.status)))]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
+                    attrs: { name: "status" }
+                  },
+                  _vm._l(_vm.$parent.status, function(st) {
+                    return _c(
+                      "option",
+                      {
+                        attrs: {
+                          value: "",
+                          disabled: _vm.order.status != "pending"
+                        },
+                        domProps: { selected: st.type === _vm.order.status }
+                      },
+                      [_vm._v(_vm._s(st.alias))]
+                    )
+                  }),
+                  0
+                )
+              ]),
               _vm._v(" "),
-              _vm._m(2)
+              _vm._m(1)
             ]
           )
         ])
@@ -40659,11 +40690,13 @@ var render = function() {
               "table",
               { staticClass: "table" },
               [
-                _vm._m(3),
+                _vm._m(2),
                 _vm._v(" "),
                 _vm._l(_vm.order.oder_item, function(item) {
                   return _c("tbody", { key: _vm.order.id }, [
-                    _c("th", [_vm._v("produto")]),
+                    _c("th", [
+                      _vm._v(_vm._s(_vm.getProductName(item.product_id)))
+                    ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(item.quantity))]),
                     _vm._v(" "),
@@ -40686,29 +40719,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("button", [_vm._v("Voltar")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Status")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-          attrs: { name: "", id: "" }
-        },
-        [
-          _c("option", { attrs: { value: "" } }, [_vm._v("exemplo")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "" } }, [_vm._v("exemplo")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "" } }, [_vm._v("exemplo")])
-        ]
-      )
     ])
   },
   function() {
@@ -41231,12 +41241,7 @@ var render = function() {
         "div",
         [
           _c("order-details", {
-            attrs: {
-              order: _vm.order_view,
-              client_name: _vm.order_client_name,
-              products: _vm.products,
-              status: _vm.status
-            }
+            attrs: { order: _vm.order_view, client_name: _vm.order_client_name }
           })
         ],
         1

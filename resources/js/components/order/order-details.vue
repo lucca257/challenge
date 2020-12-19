@@ -21,11 +21,9 @@
             />
           </div>
           <div class="form-group">
-            <label>Status</label>
-            <select name="" id="" class="form-control ml-sm-2 mr-sm-4 my-2">
-              <option value="">exemplo</option>
-              <option value="">exemplo</option>
-              <option value="">exemplo</option>
+            <label>{{getStatus(order.status)}}</label>
+            <select name="status" class="form-control ml-sm-2 mr-sm-4 my-2">
+              <option value="" v-for="st in $parent.status" :selected="st.type === order.status" :disabled="order.status != 'pending'">{{st.alias}}</option>
             </select>
           </div>
           <div class="ml-auto text-right">
@@ -49,7 +47,7 @@
               </tr>
             </thead>
             <tbody v-for="item in order.oder_item" :key="order.id">
-              <th>produto</th>
+              <th>{{getProductName(item.product_id)}}</th>
               <td>{{ item.quantity }}</td>
               <td>{{ item.price }}</td>
             </tbody>
@@ -67,16 +65,23 @@ export default {
     order: {
       type: Object,
     },
-    products: {
-        type: Array
-    },
     client_name: {
         type: String
     },
-    status: {
-        type: Array
-    }
   },
+  methods: {
+    getStatus(status_id){
+        return this.$parent.getStatus(status_id)
+    },
+    getProductName(product_id){
+        const {name} = this.$parent.products.find(product => product.id === product_id)
+        return name
+    },
+    disableInputStatus(){
+        if(status === 'pending' || status === 'canceled') return false
+        return true
+    }
+  }
 };
 </script>
 
