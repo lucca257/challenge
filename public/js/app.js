@@ -40687,13 +40687,24 @@ var render = function() {
           _c(
             "button",
             {
+              staticClass: "btn btn-light",
+              attrs: { type: "button" },
               on: {
                 click: function($event) {
                   return _vm.$parent.loadApis()
                 }
               }
             },
-            [_vm._v("Voltar")]
+            [
+              _c(
+                "i",
+                {
+                  staticClass: "fa fa-chevron-circle-left",
+                  attrs: { "aria-hidden": "true" }
+                },
+                [_vm._v("Voltar")]
+              )
+            ]
           )
         ]),
         _vm._v(" "),
@@ -40725,7 +40736,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v(_vm._s(_vm.getStatus(_vm.order.status)))]),
+                _c("label", [_vm._v("status")]),
                 _vm._v(" "),
                 _c(
                   "select",

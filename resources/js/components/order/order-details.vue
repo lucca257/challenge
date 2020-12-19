@@ -6,7 +6,7 @@
         pedido #{{ order.id }}
       </h3>
       <div class="card-header">
-        <button @click="$parent.loadApis()">Voltar</button>
+        <button type="button" class="btn btn-light" @click="$parent.loadApis()"><i class="fa fa-chevron-circle-left" aria-hidden="true">Voltar</i></button>
       </div>
       <div class="card-body">
         <form class="form-inline" @submit.prevent="submit">
@@ -21,7 +21,7 @@
             />
           </div>
           <div class="form-group">
-            <label>{{getStatus(order.status)}}</label>
+            <label>status</label>
             <select name="status" class="form-control ml-sm-2 mr-sm-4 my-2">
               <option value="" v-for="st in $parent.status" :selected="st.type === order.status" :disabled="order.status != 'pending'">{{st.alias}}</option>
             </select>
