@@ -6,7 +6,7 @@
         pedido #{{ order.id }}
       </h3>
       <div class="card-header">
-        <button>Voltar</button>
+        <button @click="$parent.loadApis()">Voltar</button>
       </div>
       <div class="card-body">
         <form class="form-inline" @submit.prevent="submit">
