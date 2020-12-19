@@ -29,16 +29,13 @@
                 </div>
                 <div class="form-group col-md-3">
                   <label for="status_id">status &nbsp;</label>
-
                   <select
                     name="status"
                     id="status_id"
                     class="form-control ml-sm-2 mr-sm-4 my-2"
                     v-model="client_status"
                   >
-                    <option v-for="st in status" v-bind:value="st.type">
-                      {{ st.alias }}
-                    </option>
+                  <option value="pending">pendente</option>
                   </select>
                 </div>
                 <div class="col-md-3">

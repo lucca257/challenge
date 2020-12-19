@@ -2437,9 +2437,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
@@ -40984,20 +40981,13 @@ var render = function() {
                                     }
                                   }
                                 },
-                                _vm._l(_vm.status, function(st) {
-                                  return _c(
+                                [
+                                  _c(
                                     "option",
-                                    { domProps: { value: st.type } },
-                                    [
-                                      _vm._v(
-                                        "\n                    " +
-                                          _vm._s(st.alias) +
-                                          "\n                  "
-                                      )
-                                    ]
+                                    { attrs: { value: "pending" } },
+                                    [_vm._v("pendente")]
                                   )
-                                }),
-                                0
+                                ]
                               )
                             ]),
                             _vm._v(" "),
