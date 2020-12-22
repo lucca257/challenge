@@ -14,7 +14,12 @@
                                 <input v-model="fields.name" type="text" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="nome do produto"  required>
                             </div>
                             <div class="form-group">
-                                <label>Preço</label>
+                                <label>Quantidade</label>
+                                <number-input controls></number-input>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Preço unitário</label>
                                 <input v-model="fields.price" type="number" value="0" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="ex: 0.00" required>
                             </div>
                             <div class="form-group">
@@ -46,7 +51,7 @@
                             <th>Ações</th>
                         </tr>
                         </thead>
-                        <tbody v-for="product in products">
+                        <tbody v-for="product in products" :key="product.id">
                         <tr>
                             <template v-if="editId == product.id">
                                 <td><input v-model="editProductData.name" type="text"></td>
@@ -92,6 +97,8 @@
 </template>
 
 <script>
+import VueNumberInput from '@chenfengyuan/vue-number-input';
+Vue.component('vue-number-input', VueNumberInput);
 export default {
     name: "product-list",
     data() {
