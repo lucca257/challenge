@@ -2578,9 +2578,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "client-list",
   data: function data() {
@@ -3162,14 +3159,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                console.log(order);
                 _this3$clients$find = _this3.clients.find(function (client) {
                   return client.id === order.client_id;
                 }), name = _this3$clients$find.name;
                 _this3.order_client_name = name;
                 _this3.order_view = order;
 
-              case 4:
+              case 3:
               case "end":
                 return _context6.stop();
             }
@@ -3384,9 +3380,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chenfengyuan_vue_number_input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chenfengyuan/vue-number-input */ "./node_modules/@chenfengyuan/vue-number-input/dist/vue-number-input.js");
 /* harmony import */ var _chenfengyuan_vue_number_input__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_chenfengyuan_vue_number_input__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
 //
 //
 //
@@ -7992,7 +7985,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nh3[data-v-6ac4c38d] {\r\n    text-align: center;\r\n    margin-top: 30px;\r\n    margin-bottom: 20px;\n}\n.icon i[data-v-6ac4c38d] {\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\nh3[data-v-6ac4c38d] {\n    text-align: center;\n    margin-top: 30px;\n    margin-bottom: 20px;\n}\n.icon i[data-v-6ac4c38d] {\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -40901,8 +40894,8 @@ var render = function() {
                 [
                   _vm._m(2),
                   _vm._v(" "),
-                  _vm._l(_vm.clients, function(client) {
-                    return _c("tbody", [
+                  _vm._l(_vm.clients, function(client, c) {
+                    return _c("tbody", { key: c }, [
                       _c(
                         "tr",
                         [
@@ -41002,8 +40995,6 @@ var render = function() {
                                 _c("td", [_vm._v(_vm._s(client.email))]),
                                 _vm._v(" "),
                                 _c("td", [
-                                  _vm._m(3, true),
-                                  _vm._v(" "),
                                   _c(
                                     "a",
                                     {
@@ -41095,14 +41086,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Ações")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "icon", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fa fa-eye", attrs: { "aria-hidden": "true" } })
     ])
   }
 ]
@@ -41825,8 +41808,8 @@ var render = function() {
                       [
                         _vm._m(2),
                         _vm._v(" "),
-                        _vm._l(_vm.orders, function(order) {
-                          return _c("tbody", { key: order.id }, [
+                        _vm._l(_vm.orders, function(order, o) {
+                          return _c("tbody", { key: o }, [
                             _c("tr", [
                               _c("td", [_vm._v(_vm._s(order.id))]),
                               _vm._v(" "),
@@ -42341,8 +42324,6 @@ var render = function() {
                                 _c("td", [_vm._v(_vm._s(product.description))]),
                                 _vm._v(" "),
                                 _c("td", [
-                                  _vm._m(3, true),
-                                  _vm._v(" "),
                                   _c(
                                     "a",
                                     {
@@ -42448,14 +42429,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Ações")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "icon", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fa fa-eye", attrs: { "aria-hidden": "true" } })
     ])
   }
 ]

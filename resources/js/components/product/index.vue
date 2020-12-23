@@ -75,9 +75,6 @@
                                 <td>{{ product.description }}</td>
                                 <td>
                                     <a href="#" class="icon">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="#" class="icon">
                                         <i class="fa fa-pencil" aria-hidden="true" @click="onEdit(product)"></i>
                                     </a>
                                     <a href="#" class="icon">

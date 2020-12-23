@@ -133,7 +133,7 @@
                   <th>#</th>
                 </tr>
               </thead>
-              <tbody v-for="order in orders" :key="order.id">
+              <tbody v-for="(order,o) in orders" :key="o">
                 <tr>
                   <td>{{ order.id }}</td>
                   <td>{{ getClient(order.client_id) }}</td>
@@ -251,7 +251,6 @@ export default {
         });
     },
     async onView(order) {
-      console.log(order);
       const { name } = this.clients.find(
         (client) => client.id === order.client_id
       );

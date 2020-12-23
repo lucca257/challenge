@@ -40,7 +40,7 @@
                             <th>Ações</th>
                         </tr>
                         </thead>
-                        <tbody v-for="client in clients">
+                        <tbody v-for="(client, c) in clients" :key="c">
                         <tr>
                             <template v-if="editId == client.id">
                                 <td><input v-model="editClientData.name" type="text" style="width: 100%;"></td>
@@ -58,9 +58,6 @@
                                 <td>{{client.name}}</td>
                                 <td>{{client.email}}</td>
                                 <td>
-                                    <a href="#" class="icon">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
-                                    </a>
                                     <a href="#" class="icon">
                                         <i class="fa fa-pencil" aria-hidden="true" @click="onEdit(client)"></i>
                                     </a>
