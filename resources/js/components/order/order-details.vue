@@ -27,7 +27,7 @@
             </select>
           </div>
           <div class="ml-auto text-right">
-            <button type="submit" class="btn btn-primary my-2">
+            <button type="submit" class="btn btn-primary my-2" :disabled="order.status != 'pending'">
               Alterar Status
             </button>
           </div>
