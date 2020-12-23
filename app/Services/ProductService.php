@@ -28,12 +28,13 @@ class ProductService extends BaseService
     /**
      * @param int $product_id
      * @param float $quantity
+     * @param bool $canceled
      * @return bool
      */
-    public function updateQuantify(int $product_id, float $quantity): bool
+    public function updateQuantify(int $product_id, float $quantity, bool $canceled = false): bool
     {
         $product = parent::find($product_id);
-        $new_quantity = $product->amount - $quantity;
+        $new_quantity = $canceled ? $product->amount + $quantity : $product->amount - $quantity;
         return parent::update($product_id, [
             'amount' => $new_quantity
         ]);
