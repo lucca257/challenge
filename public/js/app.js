@@ -3480,6 +3480,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 Vue.component('vue-number-input', _chenfengyuan_vue_number_input__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3491,13 +3492,18 @@ Vue.component('vue-number-input', _chenfengyuan_vue_number_input__WEBPACK_IMPORT
       editId: null,
       baseUrl: 'api/products/',
       editProductData: {},
-      fields: {}
+      fields: {
+        amount: 1
+      }
     };
   },
   mounted: function mounted() {
     this.loadProducts();
   },
   methods: {
+    chamarPai: function chamarPai() {
+      console.log(123);
+    },
     loadProducts: function loadProducts() {
       var _this = this;
 
@@ -41996,7 +42002,6 @@ var render = function() {
               _c(
                 "form",
                 {
-                  staticClass: "form-inline",
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
@@ -42005,117 +42010,142 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Nome")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.fields.name,
-                          expression: "fields.name"
-                        }
-                      ],
-                      staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                      attrs: {
-                        type: "text",
-                        placeholder: "nome do produto",
-                        required: ""
-                      },
-                      domProps: { value: _vm.fields.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.fields, "name", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", [_vm._v("Quantidade")]),
+                  _c("div", { staticClass: "row form-inline" }, [
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _c("label", [_vm._v("Nome")]),
                       _vm._v(" "),
-                      _c("number-input", { attrs: { controls: "" } })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Preço unitário")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.fields.price,
-                          expression: "fields.price"
-                        }
-                      ],
-                      staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                      attrs: {
-                        type: "number",
-                        value: "0",
-                        min: "0",
-                        step: "0.01",
-                        "data-number-to-fixed": "2",
-                        "data-number-stepfactor": "100",
-                        placeholder: "ex: 0.00",
-                        required: ""
-                      },
-                      domProps: { value: _vm.fields.price },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.name,
+                            expression: "fields.name"
                           }
-                          _vm.$set(_vm.fields, "price", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Descrição")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.fields.description,
-                          expression: "fields.description"
-                        }
-                      ],
-                      staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
-                      attrs: {
-                        type: "text",
-                        placeholder: "descrição",
-                        required: ""
-                      },
-                      domProps: { value: _vm.fields.description },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                        ],
+                        staticClass: "form-control ml-sm-5 mr-sm-4 my-2",
+                        attrs: {
+                          type: "text",
+                          placeholder: "nome do produto",
+                          required: ""
+                        },
+                        domProps: { value: _vm.fields.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.fields, "name", $event.target.value)
                           }
-                          _vm.$set(
-                            _vm.fields,
-                            "description",
-                            $event.target.value
-                          )
                         }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(1)
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group col-md-4" },
+                      [
+                        _c("label", { staticClass: "mr-sm-2" }, [
+                          _vm._v("Quantidade")
+                        ]),
+                        _vm._v(" "),
+                        _c("number-input", {
+                          attrs: {
+                            min: 1,
+                            size: "small",
+                            inline: "",
+                            center: "",
+                            controls: ""
+                          },
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              return _vm.chamarPai($event)
+                            }
+                          },
+                          model: {
+                            value: _vm.fields.amount,
+                            callback: function($$v) {
+                              _vm.$set(_vm.fields, "amount", $$v)
+                            },
+                            expression: "fields.amount"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _c("label", [_vm._v("Preço unitário")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.price,
+                            expression: "fields.price"
+                          }
+                        ],
+                        staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
+                        attrs: {
+                          type: "number",
+                          value: "0",
+                          min: "0",
+                          step: "0.01",
+                          "data-number-to-fixed": "2",
+                          "data-number-stepfactor": "100",
+                          placeholder: "ex: 0.00",
+                          required: ""
+                        },
+                        domProps: { value: _vm.fields.price },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.fields, "price", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-md-4" }, [
+                      _c("label", [_vm._v("Descrição")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.description,
+                            expression: "fields.description"
+                          }
+                        ],
+                        staticClass: "form-control ml-sm-2 mr-sm-4 my-2",
+                        attrs: {
+                          type: "text",
+                          placeholder: "descrição",
+                          required: ""
+                        },
+                        domProps: { value: _vm.fields.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.fields,
+                              "description",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
                 ]
               )
             ])
@@ -42383,13 +42413,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "ml-auto text-right" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary my-2", attrs: { type: "submit" } },
-        [_vm._v("Adicionar")]
-      )
-    ])
+    return _c(
+      "div",
+      { staticClass: "form-group col-md-3 ml-auto text-right" },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-block",
+            attrs: { type: "submit" }
+          },
+          [_vm._v("Adicionar")]
+        )
+      ]
+    )
   },
   function() {
     var _vm = this

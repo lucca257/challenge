@@ -8,26 +8,27 @@
                         Adicione um novo Produto
                     </div>
                     <div class="card-body">
-                        <form class="form-inline" @submit.prevent="submit">
-                            <div class="form-group">
-                                <label>Nome</label>
-                                <input v-model="fields.name" type="text" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="nome do produto"  required>
-                            </div>
-                            <div class="form-group">
-                                <label>Quantidade</label>
-                                <number-input controls></number-input>
-
-                            </div>
-                            <div class="form-group">
-                                <label>Preço unitário</label>
-                                <input v-model="fields.price" type="number" value="0" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="ex: 0.00" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Descrição</label>
-                                <input v-model="fields.description" type="text" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="descrição" required>
-                            </div>
-                            <div class="ml-auto text-right">
-                                <button type="submit" class="btn btn-primary my-2">Adicionar</button>
+                        <form @submit.prevent="submit">
+                            <div class="row form-inline">
+                                <div class="form-group col-md-4">
+                                    <label>Nome</label>
+                                    <input v-model="fields.name" type="text" class="form-control ml-sm-5 mr-sm-4 my-2" placeholder="nome do produto"  required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="mr-sm-2">Quantidade</label>
+                                    <number-input v-model="fields.amount" v-on:click.stop="chamarPai" :min="1" size="small" inline center controls></number-input>
+                                </div>
+                                <div class="form-group col-md-3 ml-auto text-right">
+                                    <button type="submit" class="btn btn-primary btn-block">Adicionar</button>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Preço unitário</label>
+                                    <input v-model="fields.price" type="number" value="0" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="ex: 0.00" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Descrição</label>
+                                    <input v-model="fields.description" type="text" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="descrição" required>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -109,13 +110,18 @@ export default {
             baseUrl: 'api/products/',
 
             editProductData: {},
-            fields: {}
+            fields: {
+                amount: 1
+            },
         }
     },
     mounted() {
         this.loadProducts()
     },
     methods: {
+        chamarPai() {
+            console.log(123)
+        },
         loadProducts() {
             axios.get(this.baseUrl, this.fields).then(response => {
                 this.products = response.data.data
