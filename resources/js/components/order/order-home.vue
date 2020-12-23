@@ -22,7 +22,7 @@
                     v-model="client_id"
                   >
                     <option value="0" disabled>Selectione um cliente</option>
-                    <option v-for="client in clients" v-bind:value="client.id">
+                    <option v-for="(client,c) in clients" v-bind:value="client.id" :key="c">
                       {{ client.name }}
                     </option>
                   </select>
@@ -69,7 +69,8 @@
                   >
                     <option value="0" disabled>Selectione seu produto</option>
                     <option
-                      v-for="product in input.listProducts"
+                      v-for="(product, p) in input.listProducts"
+                      :key="p"
                       v-bind:value="product.id"
                     >
                       {{ product.name }}
@@ -89,17 +90,17 @@
                     <option v-if="input.product === 0" value="0">0</option>
                     <option
                       v-else
-                      v-for="amount in searchAmountProduct(input.product)"
                       v-bind:value="amount"
+                      v-for="(amount, a) in searchAmountProduct(input.product)"
+                      :key="a"
                     >
                       {{ amount }}
                     </option>
                   </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3" v-if="inputs.length != 1">
                   <button
-                    type="submit"
                     class="btn btn-secondary btn-block"
                     @click="removeInput(input)"
                   >
@@ -262,6 +263,10 @@ export default {
       this.editClientData = null;
     },
     async submit() {
+      if(this.client_id === 0){
+          alert('selecione um cliente válido')
+          return
+      }
       const order = {
         client_id: this.client_id,
         status: this.client_status,
@@ -317,10 +322,6 @@ export default {
     removeInput(item) {
       //get last input
       const lastInput = this.inputs[this.inputs.length - 1];
-      //prevent create new coponent
-      if (lastInput.listProducts.length === 1) {
-        return;
-      }
 
       this.inputs = this.inputs.filter((input) => input !== item);
       this.calculateTotalPrice();
@@ -331,6 +332,7 @@ export default {
         );
         lastInput.listProducts.push(selectedProduct);
       }
+
     },
     //returns not selected products
     filterProducts(listProducts) {

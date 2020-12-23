@@ -2982,6 +2982,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "order-home",
@@ -3204,19 +3205,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
+                if (!(_this5.client_id === 0)) {
+                  _context8.next = 3;
+                  break;
+                }
+
+                alert('selecione um cliente válido');
+                return _context8.abrupt("return");
+
+              case 3:
                 order = {
                   client_id: _this5.client_id,
                   status: _this5.client_status,
                   products: _this5.inputs
                 };
-                _context8.next = 3;
+                _context8.next = 6;
                 return axios.post(_this5.baseUrl, order).then(function (response) {
                   _this5.loadApis();
                 })["catch"](function (error) {
                   console.log(error.response.data);
                 });
 
-              case 3:
+              case 6:
               case "end":
                 return _context8.stop();
             }
@@ -3276,12 +3286,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //removing created input
     removeInput: function removeInput(item) {
       //get last input
-      var lastInput = this.inputs[this.inputs.length - 1]; //prevent create new coponent
-
-      if (lastInput.listProducts.length === 1) {
-        return;
-      }
-
+      var lastInput = this.inputs[this.inputs.length - 1];
       this.inputs = this.inputs.filter(function (input) {
         return input !== item;
       });
@@ -8044,7 +8049,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh3[data-v-697cd42a] {\r\n  text-align: center;\r\n  margin-top: 30px;\r\n  margin-bottom: 20px;\n}\n.icon i[data-v-697cd42a] {\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\nh3[data-v-697cd42a] {\n  text-align: center;\n  margin-top: 30px;\n  margin-bottom: 20px;\n}\n.icon i[data-v-697cd42a] {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -41485,10 +41490,13 @@ var render = function() {
                                     [_vm._v("Selectione um cliente")]
                                   ),
                                   _vm._v(" "),
-                                  _vm._l(_vm.clients, function(client) {
+                                  _vm._l(_vm.clients, function(client, c) {
                                     return _c(
                                       "option",
-                                      { domProps: { value: client.id } },
+                                      {
+                                        key: c,
+                                        domProps: { value: client.id }
+                                      },
                                       [
                                         _vm._v(
                                           "\n                    " +
@@ -41641,11 +41649,15 @@ var render = function() {
                                         ),
                                         _vm._v(" "),
                                         _vm._l(input.listProducts, function(
-                                          product
+                                          product,
+                                          p
                                         ) {
                                           return _c(
                                             "option",
-                                            { domProps: { value: product.id } },
+                                            {
+                                              key: p,
+                                              domProps: { value: product.id }
+                                            },
                                             [
                                               _vm._v(
                                                 "\n                    " +
@@ -41728,10 +41740,11 @@ var render = function() {
                                               _vm.searchAmountProduct(
                                                 input.product
                                               ),
-                                              function(amount) {
+                                              function(amount, a) {
                                                 return _c(
                                                   "option",
                                                   {
+                                                    key: a,
                                                     domProps: { value: amount }
                                                   },
                                                   [
@@ -41750,26 +41763,27 @@ var render = function() {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _c("div", { staticClass: "col-md-3" }, [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-secondary btn-block",
-                                      attrs: { type: "submit" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.removeInput(input)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                  Remover produto -\n                "
+                                _vm.inputs.length != 1
+                                  ? _c("div", { staticClass: "col-md-3" }, [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-secondary btn-block",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.removeInput(input)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                  Remover produto -\n                "
+                                          )
+                                        ]
                                       )
-                                    ]
-                                  )
-                                ])
+                                    ])
+                                  : _vm._e()
                               ]
                             )
                           }),
